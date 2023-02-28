@@ -36,13 +36,13 @@ The Time Tracker Console Application could have the following additional feature
 <h2>💻 Technology Stack</h2>
 <p ><img align="center" width="500" src="./.github/first_level.svg#gh-dark-mode-only"/></p>
 <ul>
-<li><span style="color: #2A4849"><b>C#</b></span> as the primary language</li>
-<li><span style="color: #2A4849"><b>.NET6</b></span> as the framework</li>
-<li><span style="color: #2A4849"><b>SQL-PostgreSQL</b></span> as the database</li>
-<li><span style="color: #2A4849"><b>Dapper</b></span> as the object-relational mapper (ORM)</li>
-<li><span style="color: #2A4849"><b>NpgSQL</b></span> as the PostgreSQL database driver</li>
-<li><span style="color: #2A4849"><b>SystemConfiguration.Configuration Manager</b></span> for application configuration management</li>
-<li><span style="color: #2A4849"><b>DbGate</b></span> for database management and querying.</li>
+<li><b>C#</b> as the primary language</li>
+<li><b>.NET6</b> as the framework</li>
+<li><b>SQL-PostgreSQL</b> as the database</li>
+<li><b>Dapper</b> as the object-relational mapper (ORM)</li>
+<li><b>NpgSQL</b> as the PostgreSQL database driver</li>
+<li><b>SystemConfiguration.Configuration Manager</b> for application configuration management</li>
+<li><b>DbGate</b> for database management and querying.</li>
 </ul>
 
 <p><img align="center" width="500" src="./.github/second_level.svg#gh-dark-mode-only"/></p>
