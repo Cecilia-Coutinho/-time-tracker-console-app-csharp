@@ -19,7 +19,7 @@ The MVP (Minimum Viable Product) of the Time Tracker Console App will include th
 <li>Basic user interface and data visualization</li>
 <li>Menu allowing users to create persons and projects</li>
 <li>Ability to insert time to specific projects</li>
-<li>Edit persons, projects, and time</li>
+<li>Basic reporting features, including a summary of time spent on each project</li>
 </ul>
 
 <h2>🎯 Additional Features:</h2>
@@ -28,7 +28,7 @@ The MVP (Minimum Viable Product) of the Time Tracker Console App will include th
 The Time Tracker Console Application could have the following additional features:
 </p>
 <ul>
-<li>Basic reporting features, including a summary of time spent on each project</li>
+<li>Edit persons, projects, and time</li>
 <li>Export of time entries to a CSV file</li>
 <li>User-defined categories for time entries (e.g., coding, meetings, research)</li>
 </ul>
