@@ -12,7 +12,7 @@ by <a href="https://github.com/Cecilia-Coutinho">Cecilia Coutinho</a>
 The Time Tracker Console Application is a software solution designed to track time spent on various activities within a project. The application will provide a user-friendly interface that enables users to create persons and projects, insert time to a specific project, and edit persons, projects, and time. Additionally, the application will prevent the creation of insertions by id. The solution will utilize C# as the primary language and will be developed using .NET6.
 
 <h2>📋 MVP</h2>
-<p align = center>
+<p>
 The MVP (Minimum Viable Product) of the Time Tracker Console App will include the following features:
 </p>
 <ul>
@@ -24,7 +24,7 @@ The MVP (Minimum Viable Product) of the Time Tracker Console App will include th
 
 <h2>🎯 Additional Features:</h2>
 <p ><img align="center" width="500" src="./.github/first_level.svg#gh-dark-mode-only"/></p>
-<p align = center>
+<p>
 The Time Tracker Console Application could have the following additional features:
 </p>
 <ul>
