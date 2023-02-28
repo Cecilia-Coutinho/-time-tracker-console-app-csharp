@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TimeTrackeConsoleApp
 {
-    internal class TimeData
+    internal class TimeEntryData
     {
     }
 }

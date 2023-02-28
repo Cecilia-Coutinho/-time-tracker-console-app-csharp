@@ -24,15 +24,17 @@ namespace TimeTrackeConsoleApp
         // TODO: Retrieve a list with all "person"
         // TODO: Update "person"
         // TODO: Delete "person" by name
+
         // TODO: Create a project
         // TODO: Retrieve project by name
         // TODO: Retrieve a list with all projects
         // TODO: Update a project
         // TODO: Delete a project by name
-        // TODO: Create a time
-        // TODO: Retrieve a list of time spent per project name
-        // TODO: Retrieve a list of time spent per "person" name
-        // TODO: Update a time
-        // TODO: Delete a time by person name
+
+        // TODO: Create a timeEntry
+        // TODO: Retrieve a list of timeEntry per project name
+        // TODO: Retrieve a list of timeEntry per "person" name
+        // TODO: Update a timeEntry
+        // TODO: Delete a timeEntry by person name
     }
 }
