@@ -1,4 +1,4 @@
-﻿ALTER TABLE "public"."csrc_project_person" DROP CONSTRAINT "fkey_person_project";
+﻿ALTER TABLE "public"."csrc_project_person" DROP CONSTRAINT "fkey_csrc_person_project_person_id";
 ALTER TABLE "public"."csrc_project_person" DROP CONSTRAINT "FK_csrc_project_person_project_id";
 DROP TABLE IF EXISTS "public"."csrc_person";
 DROP TABLE IF EXISTS "public"."csrc_project";
@@ -27,5 +27,5 @@ ALTER TABLE "public"."csrc_project_person" DISABLE TRIGGER ALL;
 ALTER TABLE "public"."csrc_person" ENABLE TRIGGER ALL;
 ALTER TABLE "public"."csrc_project" ENABLE TRIGGER ALL;
 ALTER TABLE "public"."csrc_project_person" ENABLE TRIGGER ALL;
+ALTER TABLE "public"."csrc_project_person" ADD CONSTRAINT "fkey_csrc_person_project_person_id" FOREIGN KEY ("person_id") REFERENCES "public"."csrc_person" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE "public"."csrc_project_person" ADD CONSTRAINT "FK_csrc_project_person_project_id" FOREIGN KEY ("project_id") REFERENCES "public"."csrc_project" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
-ALTER TABLE "public"."csrc_project_person" ADD CONSTRAINT "fkey_person_project" FOREIGN KEY ("person_id") REFERENCES "public"."csrc_person" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
