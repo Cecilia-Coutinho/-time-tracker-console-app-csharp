@@ -12,7 +12,7 @@ namespace TimeTrackeConsoleApp
         public string? MenuItemText { get; set; }
         //public List<string> MenuItems { get; set; }
         public int MenuIndex { get; set; }
-        public static Action? Action { get; set; } //to hold and be executed when menu item selected
+        public Action? Action { get; set; } //to hold and be executed when menu item selected
 
         public MenuSystem(string? menuItemText, Action action)
         {
@@ -26,7 +26,6 @@ namespace TimeTrackeConsoleApp
             ForegroundColor = ConsoleColor.DarkYellow;
             WriteLine(@"         ____________________ ");
             WriteLine(@"        |                    |");
-            WriteLine(@"        |     WELCOME TO     |");
             WriteLine(@"        |  TIME TRACKER APP  |");
             WriteLine(@"        |____________________|");
             ResetColor();
@@ -35,7 +34,7 @@ namespace TimeTrackeConsoleApp
             Console.WriteLine("\tPlease select one of the following options:\n");
             Console.ResetColor();
 
-            int maxIndexToSelect = menuItems.Count - 1;
+            int maxIndexToSelect = menuItems.Count;
             for (int i = 0; i < maxIndexToSelect; i++)
             {
                 if (i == menuIndex - 1)
@@ -50,7 +49,7 @@ namespace TimeTrackeConsoleApp
         public static int SelectMenuItemWithArrows(ConsoleKeyInfo keyInfo, int currentSelectionIndex, List<MenuSystem> menuItems)
         {
             int minIndexToSelect = 1;
-            int maxIndexToSelect = menuItems.Count - 1;
+            int maxIndexToSelect = menuItems.Count;
 
             switch (keyInfo.Key)
             {
@@ -65,12 +64,6 @@ namespace TimeTrackeConsoleApp
                     {
                         currentSelectionIndex++;
                     }
-                    break;
-                case ConsoleKey.Enter:
-                    Console.Clear();
-                    Action?.Invoke();
-                    Console.WriteLine("Press any key to continue...");
-                    Console.ReadKey();
                     break;
             }
             return currentSelectionIndex;

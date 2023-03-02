@@ -58,16 +58,28 @@ namespace TimeTrackeConsoleApp
             };
             bool runMenu = true;
             ConsoleKeyInfo keyInfo;
-            int menuIndex = 1;
+            int menuIndex = 0;
 
             while (runMenu)
             {
                 Console.Clear();
                 MenuSystem.DisplayMenuItems(mainMenuItems, menuIndex);
                 keyInfo = Console.ReadKey(true);
-                menuIndex = MenuSystem.SelectMenuItemWithArrows(keyInfo, menuIndex, mainMenuItems);
-            }
 
+                if (keyInfo.Key == ConsoleKey.Enter)
+                {
+                    MenuSystem selectedMenuItem = mainMenuItems[menuIndex - 1];
+                    // Invoke the corresponding method
+                    Clear();
+                    selectedMenuItem.Action?.Invoke();
+                    Console.WriteLine("Press any key to continue...");
+                    Console.ReadKey();
+                }
+                else
+                {
+                    menuIndex = MenuSystem.SelectMenuItemWithArrows(keyInfo, menuIndex, mainMenuItems);
+                }
+            }
         }
 
         static void ManagePerson()
@@ -103,7 +115,7 @@ namespace TimeTrackeConsoleApp
             Console.Clear();
             Console.WriteLine("\n\tThank you for using the App. We look forward to your next visit!");
             Thread.Sleep(1000);
-            //Environment.Exit(0);
+            Environment.Exit(0);
             Console.ReadLine();
         }
         static void GoBackMenuOptions()
