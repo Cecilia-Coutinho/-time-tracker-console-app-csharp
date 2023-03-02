@@ -378,6 +378,10 @@ namespace TimeTrackeConsoleApp
                         connection.Execute(sql, parameters, transaction: transaction);
                         transaction.Commit();
                     }
+                    catch (NpgsqlException ex)
+                    {
+                        throw new Exception("Ops! Something happened... Error updating time entry(PostgreSQL-related)", ex);
+                    }
                     catch (Exception ex)
                     {
                         transaction.Rollback();
