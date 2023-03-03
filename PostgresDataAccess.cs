@@ -146,7 +146,7 @@ namespace TimeTrackeConsoleApp
         }
 
         // Create a project
-        public static void CreateNewProjectData(ProjectData project)
+        public static bool CreateNewProjectData(ProjectData project)
         {
             using (IDbConnection connection = new NpgsqlConnection(connectionString))
             {
@@ -157,7 +157,7 @@ namespace TimeTrackeConsoleApp
                         "VALUES (@project_name)";
 
                     var parameters = new DynamicParameters(project);
-                    connection.Execute(sql, parameters);
+                    return Convert.ToBoolean(connection.Execute(sql, parameters));
                 }
                 catch (NpgsqlException ex)
                 {

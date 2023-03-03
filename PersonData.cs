@@ -18,14 +18,14 @@ namespace TimeTrackeConsoleApp
             {
                 Console.Write("\n\tEnter username (UNIQUE): ");
                 string? personName = Console.ReadLine()?.ToLower();
-                if (personName == "")
+                if (string.IsNullOrEmpty(personName))
                 {
                     Console.WriteLine($"\n\tError: It's not a valid Name.\n");
                     return;
                 }
                 else
                 {
-                    PersonData person = new PersonData()
+                    PersonData person = new()
                     {
                         person_name = personName,
                     };

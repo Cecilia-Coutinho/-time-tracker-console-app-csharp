@@ -11,11 +11,36 @@ namespace TimeTrackeConsoleApp
         public int id { get; set; }
         public string? project_name { get; set; }
 
-        public static void CreateProject()
+        public static void AddProject()
         {
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("coming soon");
-            Console.ResetColor();
+            Program.BannerMessageScreen();
+            try
+            {
+                Console.Write("\n\tEnter Project Name (UNIQUE): ");
+                string? projectName = Console.ReadLine()?.ToLower();
+                if (string.IsNullOrEmpty(projectName))
+                {
+                    Console.WriteLine($"\n\tError: It's not a valid Project Name.\n");
+                    return;
+                }
+                else
+                {
+                    ProjectData project = new()
+                    {
+                        project_name = projectName,
+                    };
+                    PostgresDataAccess.CreateNewProjectData(project);
+                    Console.WriteLine($"\tNew project successfully added: {project.project_name}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"\n\tError: The provided project name is either already in use\n" +
+                    $"\tor exceeds the maximum length of 100 characters.\n" +
+                    $"\t{ex.Message}");
+                Console.ResetColor();
+            }
         }
 
         public static void UpdateProject()

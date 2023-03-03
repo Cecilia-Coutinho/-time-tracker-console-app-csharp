@@ -8,7 +8,6 @@ namespace TimeTrackeConsoleApp
     {
         static void Main(string[] args)
         {
-            //
             WelcomeMessageScreen();
             DisplayMainMenu();
         }
@@ -69,7 +68,7 @@ namespace TimeTrackeConsoleApp
             string menuName = "Manage Person Menu";
             List<MenuSystem> managePersonMenuItems = new()
             {
-                new MenuSystem("Create Person", PersonData.AddPerson),
+                new MenuSystem("Create New Person", PersonData.AddPerson),
                 new MenuSystem("Edit Person", PersonData.UpdatePerson),
                 new MenuSystem("Return to Main Menu", DisplayMainMenu)
             };
@@ -82,7 +81,7 @@ namespace TimeTrackeConsoleApp
             string menuName = "Manage Project Menu";
             List<MenuSystem> manageProjectMenuItems = new()
             {
-                new MenuSystem("Create Project", ProjectData.CreateProject),
+                new MenuSystem("Create New Project", ProjectData.AddProject),
                 new MenuSystem("Edit Project", ProjectData.UpdateProject),
                 new MenuSystem("Return to Main Menu", DisplayMainMenu)
             };
