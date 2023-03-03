@@ -69,19 +69,19 @@
 
         public static void DisplayAllPersons()
         {
+            Program.BannerMessageScreen();
             List<PersonData> listPersons = PostgresDataAccess.GetListAllPersons();
             if (listPersons?.Count > 0)
             {
                 //Console.WriteLine($"Retrieved {listPersons.Count} users:");
-                string menuName = $"{listPersons.Count} users found";
-                List<MenuSystem> personToSelect = new();
-                foreach (PersonData person in listPersons)
+                Console.WriteLine($"\n\t{listPersons.Count} users found:".ToUpper());
+                int listIndex = listPersons.Count;
+                for (int i = 0; i < listIndex; i++)
                 {
-                    //Console.WriteLine($"Person Name: {person.person_name}");
-                    personToSelect.Add(new MenuSystem($"{person.person_name}", () => Console.WriteLine($"")));
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.Write($"\n\t {i + 1}. {listPersons[i].person_name}\n");
+                    Console.ResetColor();
                 }
-                Program.BannerMessageScreen();
-                MenuSystem.RunMenu(menuName, personToSelect);
             }
             else
             {
