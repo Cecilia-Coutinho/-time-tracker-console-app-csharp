@@ -15,7 +15,8 @@ namespace TimeTrackeConsoleApp
             //Helper.TestDeletePerson();
             //Helper.TestGetHoursByProjectName("coding");
             //Helper.TestGetHoursByPersonName("maria.rosa");
-            //Helper.TestUpdateTimeEntry();//
+            //Helper.TestUpdateTimeEntry();
+            //
             WelcomeMessageScreen();
             DisplayMainMenu();
         }
@@ -68,7 +69,7 @@ namespace TimeTrackeConsoleApp
             {
                 new MenuSystem("Create Person", PersonData.CreatePerson),
                 new MenuSystem("Edit Person", PersonData.UpdatePerson),
-                new MenuSystem("Exit", DisplayMainMenu)
+                new MenuSystem("Return to Main Menu", DisplayMainMenu)
             };
             RunMenu(menuName, managePersonMenuItems);
         }
@@ -80,7 +81,7 @@ namespace TimeTrackeConsoleApp
             {
                 new MenuSystem("Create Project", ProjectData.CreateProject),
                 new MenuSystem("Edit Project", ProjectData.UpdateProject),
-                new MenuSystem("Exit", DisplayMainMenu)
+                new MenuSystem("Return to Main Menu", DisplayMainMenu)
             };
             RunMenu(menuName, manageProjectMenuItems);
         }
@@ -92,7 +93,7 @@ namespace TimeTrackeConsoleApp
             {
                 new MenuSystem("Create Time Entry", TimeEntryData.CreateTimeEntry),
                 new MenuSystem("Edit Time Entry", TimeEntryData.UpdateTimeEntry),
-                new MenuSystem("Exit", DisplayMainMenu)
+                new MenuSystem("Return to Main Menu", DisplayMainMenu)
             };
             RunMenu(menuName, manageTimeEntryMenuItems);
         }
@@ -105,7 +106,7 @@ namespace TimeTrackeConsoleApp
                 new MenuSystem("View Persons Report", PersonReportMenu),
                 new MenuSystem("View Projects Report", ProjectReportMenu),
                 new MenuSystem("View Time Entries Report", TimeEntryReportMenu),
-                new MenuSystem("Exit", DisplayMainMenu)
+                new MenuSystem("Return to Main Menu", DisplayMainMenu)
             };
             RunMenu(menuName, viewReportsMenuItems);
         }
@@ -113,25 +114,90 @@ namespace TimeTrackeConsoleApp
         static void PersonReportMenu()
         {
             string menuName = "Person Report Menu";
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("coming soon");
-            Console.ResetColor();
+
+            List<MenuSystem> PersonReportsMenuItems = new List<MenuSystem>
+            {
+                new MenuSystem("Display All Persons", PersonData.DisplayAllPersons),
+                new MenuSystem("Display Persons By Project", DisplayPersonByProjectMenu),
+                new MenuSystem("Return to Previous Menu", ViewReportsMenu),
+                new MenuSystem("Return to Main Menu", DisplayMainMenu)
+            };
+            RunMenu(menuName, PersonReportsMenuItems);
         }
 
         static void ProjectReportMenu()
         {
             string menuName = "Project Report Menu";
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("coming soon");
-            Console.ResetColor();
+
+            List<MenuSystem> ProjectReportsMenuItems = new List<MenuSystem>
+            {
+                new MenuSystem("Display All Projects", ProjectData.DisplayAllProjects),
+                new MenuSystem("Display Projects By Person", DisplayProjectByPersonMenu),
+                new MenuSystem("Return to Previous Menu", ViewReportsMenu),
+                new MenuSystem("Return to Main Menu", DisplayMainMenu)
+            };
+            RunMenu(menuName, ProjectReportsMenuItems);
         }
 
         static void TimeEntryReportMenu()
         {
             string menuName = "Time Entry Report Menu";
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("coming soon");
-            Console.ResetColor();
+            List<MenuSystem> TimeEntryReportsMenuItems = new List<MenuSystem>
+            {
+                new MenuSystem("Display All Time Entries By Person", DisplayTimeEntriesByPersonMenu),
+                new MenuSystem("Display All Time Entries By Project", DisplayTimeEntriesByProjectMenu),
+                new MenuSystem("Return to Previous Menu", ViewReportsMenu),
+                new MenuSystem("Return to Main Menu", DisplayMainMenu)
+            };
+            RunMenu(menuName, TimeEntryReportsMenuItems);
+        }
+
+        static void DisplayPersonByProjectMenu()
+        {
+            string menuName = "Person By Project Report Menu";
+            List<MenuSystem> displayPersonByProjectMenuItems = new List<MenuSystem>
+            {
+                new MenuSystem("Select Project", PersonData.DisplayPersonByProject),
+                new MenuSystem("Return to Previous Menu", PersonReportMenu),
+                new MenuSystem("Return to Main Menu", DisplayMainMenu)
+            };
+            RunMenu(menuName, displayPersonByProjectMenuItems);
+        }
+
+        static void DisplayProjectByPersonMenu()
+        {
+            string menuName = "Project By Person Report Menu";
+            List<MenuSystem> displayProjectByPersonMenuItems = new List<MenuSystem>
+            {
+                new MenuSystem("Select Person", ProjectData.DisplayProjectByPerson),
+                new MenuSystem("Return to Previous Menu", ProjectReportMenu),
+                new MenuSystem("Return to Main Menu", DisplayMainMenu)
+            };
+            RunMenu(menuName, displayProjectByPersonMenuItems);
+        }
+
+        static void DisplayTimeEntriesByPersonMenu()
+        {
+            string menuName = "Time Entries By Person Report Menu";
+            List<MenuSystem> displayTimeEntriesByPersonMenuItems = new List<MenuSystem>
+            {
+                new MenuSystem("Select Person", TimeEntryData.DisplayAllTimeEntriesByPerson),
+                new MenuSystem("Return to Previous Menu", TimeEntryReportMenu),
+                new MenuSystem("Return to Main Menu", DisplayMainMenu)
+            };
+            RunMenu(menuName, displayTimeEntriesByPersonMenuItems);
+        }
+
+        static void DisplayTimeEntriesByProjectMenu()
+        {
+            string menuName = "Time Entries By Project Report Menu";
+            List<MenuSystem> displayTimeEntriesByProjectMenuItems = new List<MenuSystem>
+            {
+                new MenuSystem("Select Project", TimeEntryData.DisplayAllTimeEntriesByProject),
+                new MenuSystem("Return to Previous Menu", TimeEntryReportMenu),
+                new MenuSystem("Return to Main Menu", DisplayMainMenu)
+            };
+            RunMenu(menuName, displayTimeEntriesByProjectMenuItems);
         }
 
         static void Exit()

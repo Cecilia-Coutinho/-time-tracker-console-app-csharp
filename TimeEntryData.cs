@@ -27,5 +27,19 @@ namespace TimeTrackeConsoleApp
             Console.WriteLine("coming soon");
             Console.ResetColor();
         }
+
+        public static void DisplayAllTimeEntriesByPerson()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("coming soon");
+            Console.ResetColor();
+        }
+
+        public static void DisplayAllTimeEntriesByProject()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("coming soon");
+            Console.ResetColor();
+        }
     }
 }
