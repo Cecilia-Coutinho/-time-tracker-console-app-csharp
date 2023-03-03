@@ -16,7 +16,7 @@ namespace TimeTrackeConsoleApp
             {
                 person_name = "test",
             };
-            PostgresDataAccess.CreateNewPerson(person);
+            PostgresDataAccess.CreateNewPersonData(person);
             Console.WriteLine($"New Person: {person.person_name}");
         }
 
@@ -29,7 +29,7 @@ namespace TimeTrackeConsoleApp
                     person_name = "testperson"
                 };
 
-                PersonData person = PostgresDataAccess.GetPersonByName(personName.person_name);
+                PersonData person = PostgresDataAccess.GetPersonDataByName(personName.person_name);
                 if (person != null)
                 {
                     Console.WriteLine($"Person Name: {person.person_name}");
@@ -64,7 +64,7 @@ namespace TimeTrackeConsoleApp
 
         public static void TestUpdatePerson()
         {
-            int rowsAffected = PostgresDataAccess.UpdatePerson("testperson", "test");
+            int rowsAffected = PostgresDataAccess.UpdatePersonData("testperson", "test");
             Console.WriteLine($"{rowsAffected} rows updated");
         }
 
@@ -78,7 +78,7 @@ namespace TimeTrackeConsoleApp
                 };
                 if (person.person_name != null)
                 {
-                    PostgresDataAccess.DeletePerson(person.person_name);
+                    PostgresDataAccess.DeletePersonData(person.person_name);
                     Console.WriteLine($"{person.person_name} deleted successfully!!");
                 }
             }
@@ -90,7 +90,7 @@ namespace TimeTrackeConsoleApp
 
         public static void TestGetHoursByProjectName(string projectName)
         {
-            List<TimeEntryData> timeEntries = PostgresDataAccess.GetTimeByProjectName(projectName);
+            List<TimeEntryData> timeEntries = PostgresDataAccess.GetTimeDataByProjectName(projectName);
             foreach (var entry in timeEntries)
             {
                 Console.WriteLine($"Project: {projectName} || Hours: {entry.hours}");
@@ -99,7 +99,7 @@ namespace TimeTrackeConsoleApp
 
         public static void TestGetHoursByPersonName(string personName)
         {
-            List<TimeEntryData> timeEntries = PostgresDataAccess.GetTimeByPersonName(personName);
+            List<TimeEntryData> timeEntries = PostgresDataAccess.GetTimeDataByPersonName(personName);
             foreach (var entry in timeEntries)
             {
                 Console.WriteLine($"Hours: {entry.hours}");
@@ -114,7 +114,7 @@ namespace TimeTrackeConsoleApp
                 date = ParseStringToDate("28-02-2023")
             };
 
-            PostgresDataAccess.UpdateTimeEntry(newEntry, "maria.rosa", "coding");
+            PostgresDataAccess.UpdateTimeEntryData(newEntry, "maria.rosa", "coding");
             Console.WriteLine($"Hours updated to: {newEntry.hours}  || Date updated to: {ParseDateToString(newEntry.date)}");
         }
 

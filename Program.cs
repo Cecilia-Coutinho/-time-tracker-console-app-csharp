@@ -15,10 +15,9 @@ namespace TimeTrackeConsoleApp
             //Helper.TestDeletePerson();
             //Helper.TestGetHoursByProjectName("coding");
             //Helper.TestGetHoursByPersonName("maria.rosa");
-            //Helper.TestUpdateTimeEntry();
-            //
+            //Helper.TestUpdateTimeEntry();//
             WelcomeMessageScreen();
-            DisplayMenu();
+            DisplayMainMenu();
         }
 
         static void WelcomeMessageScreen()
@@ -46,65 +45,90 @@ namespace TimeTrackeConsoleApp
             ReadLine();
         }
 
-        static void DisplayMenu()
+        static void DisplayMainMenu()
         {
+            Thread.Sleep(20);
+            string menuName = "Main Menu";
             List<MenuSystem> mainMenuItems = new List<MenuSystem>
             {
-                new MenuSystem("Manage Person", ManagePerson),
-                new MenuSystem("Manage Project", ManageProject),
-                new MenuSystem("Manage Time Entry", ManageTimeEntry),
-                new MenuSystem("View Reports", ViewReports),
+                new MenuSystem("Manage Person", ManagePersonMenu),
+                new MenuSystem("Manage Project", ManageProjectMenu),
+                new MenuSystem("Manage Time Entry", ManageTimeEntryMenu),
+                new MenuSystem("View Reports", ViewReportsMenu),
                 new MenuSystem("Exit", Exit)
             };
-            bool runMenu = true;
-            ConsoleKeyInfo keyInfo;
-            int menuIndex = 0;
 
-            while (runMenu)
+            MenuSystem.RunMenu(menuName, mainMenuItems);
+        }
+
+        static void ManagePersonMenu()
+        {
+            string menuName = "Manage Person Menu";
+            List<MenuSystem> managePersonMenuItems = new List<MenuSystem>
             {
-                Console.Clear();
-                MenuSystem.DisplayMenuItems(mainMenuItems, menuIndex);
-                keyInfo = Console.ReadKey(true);
-
-                if (keyInfo.Key == ConsoleKey.Enter)
-                {
-                    MenuSystem selectedMenuItem = mainMenuItems[menuIndex - 1];
-                    // Invoke the corresponding method
-                    Clear();
-                    selectedMenuItem.Action?.Invoke();
-                    Console.WriteLine("Press any key to continue...");
-                    Console.ReadKey();
-                }
-                else
-                {
-                    menuIndex = MenuSystem.SelectMenuItemWithArrows(keyInfo, menuIndex, mainMenuItems);
-                }
-            }
+                new MenuSystem("Create Person", PersonData.CreatePerson),
+                new MenuSystem("Edit Person", PersonData.UpdatePerson),
+                new MenuSystem("Exit", DisplayMainMenu)
+            };
+            RunMenu(menuName, managePersonMenuItems);
         }
 
-        static void ManagePerson()
+        static void ManageProjectMenu()
         {
+            string menuName = "Manage Project Menu";
+            List<MenuSystem> manageProjectMenuItems = new List<MenuSystem>
+            {
+                new MenuSystem("Create Project", ProjectData.CreateProject),
+                new MenuSystem("Edit Project", ProjectData.UpdateProject),
+                new MenuSystem("Exit", DisplayMainMenu)
+            };
+            RunMenu(menuName, manageProjectMenuItems);
+        }
+
+        static void ManageTimeEntryMenu()
+        {
+            string menuName = "Manage Time Entry Menu";
+            List<MenuSystem> manageTimeEntryMenuItems = new List<MenuSystem>
+            {
+                new MenuSystem("Create Time Entry", TimeEntryData.CreateTimeEntry),
+                new MenuSystem("Edit Time Entry", TimeEntryData.UpdateTimeEntry),
+                new MenuSystem("Exit", DisplayMainMenu)
+            };
+            RunMenu(menuName, manageTimeEntryMenuItems);
+        }
+
+        static void ViewReportsMenu()
+        {
+            string menuName = "View Report Menu";
+            List<MenuSystem> viewReportsMenuItems = new List<MenuSystem>
+            {
+                new MenuSystem("View Persons Report", PersonReportMenu),
+                new MenuSystem("View Projects Report", ProjectReportMenu),
+                new MenuSystem("View Time Entries Report", TimeEntryReportMenu),
+                new MenuSystem("Exit", DisplayMainMenu)
+            };
+            RunMenu(menuName, viewReportsMenuItems);
+        }
+
+        static void PersonReportMenu()
+        {
+            string menuName = "Person Report Menu";
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("coming soon");
             Console.ResetColor();
         }
 
-        static void ManageProject()
+        static void ProjectReportMenu()
         {
+            string menuName = "Project Report Menu";
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("coming soon");
             Console.ResetColor();
         }
 
-        static void ManageTimeEntry()
+        static void TimeEntryReportMenu()
         {
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("coming soon");
-            Console.ResetColor();
-        }
-
-        static void ViewReports()
-        {
+            string menuName = "Time Entry Report Menu";
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("coming soon");
             Console.ResetColor();
@@ -116,11 +140,10 @@ namespace TimeTrackeConsoleApp
             Console.WriteLine("\n\tThank you for using the App. We look forward to your next visit!");
             Thread.Sleep(1000);
             Environment.Exit(0);
-            Console.ReadLine();
         }
-        static void GoBackMenuOptions()
+        static void GoBackMenuOption()
         {
-            Console.WriteLine("\n\tPress ENTER to go back to the menu.\n");
+            Console.WriteLine("\n\tPress ENTER to go back.\n");
             Console.ReadLine();
         }
     }

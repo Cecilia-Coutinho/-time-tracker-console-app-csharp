@@ -22,7 +22,7 @@ namespace TimeTrackeConsoleApp
         // ###### Here starts CRUD operations ( Create, Read-retrieve, Update, and Delete) ######
 
         // Create "person"
-        public static void CreateNewPerson(PersonData person)
+        public static void CreateNewPersonData(PersonData person)
         {
             using (IDbConnection connection = new NpgsqlConnection(connectionString))
             {
@@ -48,7 +48,7 @@ namespace TimeTrackeConsoleApp
         }
 
         // Retrieve "person" by name
-        public static PersonData GetPersonByName(string personName)
+        public static PersonData GetPersonDataByName(string personName)
         {
             using (IDbConnection connection = new NpgsqlConnection(connectionString))
             {
@@ -93,7 +93,7 @@ namespace TimeTrackeConsoleApp
         }
 
         // Update "person"
-        public static int UpdatePerson(string oldPersonName, string newPersonName)
+        public static int UpdatePersonData(string oldPersonName, string newPersonName)
         {
             using (IDbConnection connection = new NpgsqlConnection(connectionString))
             {
@@ -125,7 +125,7 @@ namespace TimeTrackeConsoleApp
         }
 
         // Delete "person" by name
-        public static void DeletePerson(string personName)
+        public static void DeletePersonData(string personName)
         {
             using (IDbConnection connection = new NpgsqlConnection(connectionString))
             {
@@ -143,7 +143,7 @@ namespace TimeTrackeConsoleApp
         }
 
         // Create a project
-        public static void CreateNewProject(ProjectData project)
+        public static void CreateNewProjectData(ProjectData project)
         {
             using (IDbConnection connection = new NpgsqlConnection(connectionString))
             {
@@ -168,7 +168,7 @@ namespace TimeTrackeConsoleApp
         }
 
         // Retrieve project by name
-        public static ProjectData GetProjectByName(string projectName)
+        public static ProjectData GetProjectDataByName(string projectName)
         {
             using (IDbConnection connection = new NpgsqlConnection(connectionString))
             {
@@ -212,7 +212,7 @@ namespace TimeTrackeConsoleApp
         }
 
         // Update a project
-        public static int UpdateProject(string oldProjectName, string newProjectName)
+        public static int UpdateProjectData(string oldProjectName, string newProjectName)
         {
             using (IDbConnection connection = new NpgsqlConnection(connectionString))
             {
@@ -244,7 +244,7 @@ namespace TimeTrackeConsoleApp
         }
 
         // Delete a project by name
-        public static void DeleteProject(string projectName)
+        public static void DeleteProjectData(string projectName)
         {
             using (IDbConnection connection = new NpgsqlConnection(connectionString))
             {
@@ -266,7 +266,7 @@ namespace TimeTrackeConsoleApp
         }
 
         // Create a timeEntry
-        public static void CreateNewTimeEntry(TimeEntryData timeEntry)
+        public static void CreateNewTimeEntryData(TimeEntryData timeEntry)
         {
             using (IDbConnection connection = new NpgsqlConnection(connectionString))
             {
@@ -297,7 +297,7 @@ namespace TimeTrackeConsoleApp
         }
 
         // Retrieve a list of timeEntry per project name
-        public static List<TimeEntryData> GetTimeByProjectName(string projectName)
+        public static List<TimeEntryData> GetTimeDataByProjectName(string projectName)
         {
             using (IDbConnection connection = new NpgsqlConnection(connectionString))
             {
@@ -324,7 +324,7 @@ namespace TimeTrackeConsoleApp
         }
 
         // Retrieve a list of timeEntry per "person" name
-        public static List<TimeEntryData> GetTimeByPersonName(string personName)
+        public static List<TimeEntryData> GetTimeDataByPersonName(string personName)
         {
             using (IDbConnection connection = new NpgsqlConnection(connectionString))
             {
@@ -351,7 +351,7 @@ namespace TimeTrackeConsoleApp
         }
 
         // Update a timeEntry by project and person name
-        public static void UpdateTimeEntry(TimeEntryData updateTimeEntry
+        public static void UpdateTimeEntryData(TimeEntryData updateTimeEntry
             , string personName, string projectName)
         {
             using (IDbConnection connection = new NpgsqlConnection(connectionString))

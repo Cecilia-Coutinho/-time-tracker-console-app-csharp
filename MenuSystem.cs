@@ -10,18 +10,14 @@ namespace TimeTrackeConsoleApp
     public class MenuSystem
     {
         public string? MenuItemText { get; set; }
-        //public List<string> MenuItems { get; set; }
-        public int MenuIndex { get; set; }
         public Action? Action { get; set; } //to hold and be executed when menu item selected
 
-        public MenuSystem(string? menuItemText, Action action)
+        public MenuSystem(string? menuItemText, Action? action)
         {
             MenuItemText = menuItemText;
             Action = action;
-            MenuIndex = 0;
-            //MenuItems = new List<string>();
         }
-        public static void DisplayMenuItems(List<MenuSystem> menuItems, int menuIndex)
+        private static void DisplayMenuItems(string menuName, List<MenuSystem> menuItems, int menuIndex)
         {
             ForegroundColor = ConsoleColor.DarkYellow;
             WriteLine(@"         ____________________ ");
@@ -33,7 +29,7 @@ namespace TimeTrackeConsoleApp
             Console.WriteLine("\n\tUse arrow keys to navigate and press Enter to select.");
             Console.WriteLine("\tPlease select one of the following options:\n");
             Console.ResetColor();
-
+            Console.WriteLine($"\t {menuName.ToUpper()}:");
             int maxIndexToSelect = menuItems.Count;
             for (int i = 0; i < maxIndexToSelect; i++)
             {
@@ -46,7 +42,7 @@ namespace TimeTrackeConsoleApp
             }
         }
 
-        public static int SelectMenuItemWithArrows(ConsoleKeyInfo keyInfo, int currentSelectionIndex, List<MenuSystem> menuItems)
+        private static int SelectMenuItemWithArrows(ConsoleKeyInfo keyInfo, int currentSelectionIndex, List<MenuSystem> menuItems)
         {
             int minIndexToSelect = 1;
             int maxIndexToSelect = menuItems.Count;
@@ -67,6 +63,34 @@ namespace TimeTrackeConsoleApp
                     break;
             }
             return currentSelectionIndex;
+        }
+
+        public static void RunMenu(string menuName, List<MenuSystem> menuItems)
+        {
+            bool runMenu = true;
+            ConsoleKeyInfo keyInfo;
+            int menuIndex = 1;
+
+            while (runMenu)
+            {
+                Clear();
+                DisplayMenuItems(menuName, menuItems, menuIndex);
+                keyInfo = Console.ReadKey(true);
+
+                if (keyInfo.Key == ConsoleKey.Enter)
+                {
+                    MenuSystem selectedMenuItem = menuItems[menuIndex - 1];
+                    // Invoke the corresponding method
+                    Clear();
+                    selectedMenuItem.Action?.Invoke();
+                    WriteLine("Press any key to continue...");
+                    ReadKey();
+                }
+                else
+                {
+                    menuIndex = SelectMenuItemWithArrows(keyInfo, menuIndex, menuItems);
+                }
+            }
         }
     }
 }
