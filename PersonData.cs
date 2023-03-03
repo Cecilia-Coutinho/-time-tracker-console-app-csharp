@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
+using static System.Console;
 
 namespace TimeTrackeConsoleApp
 {
@@ -45,16 +42,105 @@ namespace TimeTrackeConsoleApp
 
         public static void UpdatePerson()
         {
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("coming soon");
-            Console.ResetColor();
+            Program.BannerMessageScreen();
+            try
+            {
+                string? oldPersonName = ListPersonsForSelection();
+                Console.Write("\n\tEnter the new username: ");
+                string? newPersonName = Console.ReadLine();
+                if (string.IsNullOrEmpty(newPersonName))
+                {
+                    Console.WriteLine($"\n\tError: It's not a valid Name.\n");
+                    return;
+                }
+                else
+                {
+                    PostgresDataAccess.UpdatePersonData(oldPersonName, newPersonName.ToLower());
+                    Console.WriteLine($"\tPerson successfully updated: {oldPersonName} is now {newPersonName}.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"\n\tError: The provided name is either already in use\n" +
+                    $"\tor exceeds the maximum length of 25 characters.\n" +
+                    $"\t{ex.Message}");
+                Console.ResetColor();
+            }
+        }
+
+        static string? ListPersonsForSelection()
+        {
+            List<PersonData>? listPersons = PostgresDataAccess.GetListAllPersons();
+            bool runMenu = true;
+            int menuIndex = 1;
+            string menuName = "Select username to Edit";
+
+            while (runMenu)
+            {
+                Clear();
+                WriteLine($"\t {menuName.ToUpper()}:");
+                int maxIndexToSelect = listPersons.Count;
+                for (int i = 0; i < maxIndexToSelect; i++)
+                {
+                    if (i == menuIndex - 1)
+                    {
+                        ForegroundColor = ConsoleColor.DarkYellow;
+                    }
+                    Write($"\n\t {i + 1}. {listPersons[i].person_name}\n");
+                    ResetColor();
+                }
+
+                ConsoleKeyInfo keyInfo = ReadKey(true);
+
+                if (keyInfo.Key == ConsoleKey.Enter)
+                {
+                    return listPersons[menuIndex - 1].person_name;
+                }
+                else
+                {
+                    int minIndexToSelect = 1;
+
+                    switch (keyInfo.Key)
+                    {
+                        case ConsoleKey.UpArrow:
+                            if (menuIndex > minIndexToSelect)
+                            {
+                                menuIndex--;
+                            }
+                            break;
+                        case ConsoleKey.DownArrow:
+                            if (menuIndex < maxIndexToSelect)
+                            {
+                                menuIndex++;
+                            }
+                            break;
+                    }
+                }
+            }
+            return null;
         }
 
         public static void DisplayAllPersons()
         {
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("coming soon");
-            Console.ResetColor();
+            List<PersonData> listPersons = PostgresDataAccess.GetListAllPersons();
+            if (listPersons?.Count > 0)
+            {
+                //Console.WriteLine($"Retrieved {listPersons.Count} users:");
+                string menuName = $"{listPersons.Count} users found";
+                List<MenuSystem> personToSelect = new();
+                foreach (PersonData person in listPersons)
+                {
+                    //Console.WriteLine($"Person Name: {person.person_name}");
+                    personToSelect.Add(new MenuSystem($"{person.person_name}", () => Console.WriteLine($"")));
+                }
+                Program.BannerMessageScreen();
+                MenuSystem.RunMenu(menuName, personToSelect);
+            }
+            else
+            {
+                Console.WriteLine("No persons found");
+            }
         }
 
         public static void DisplayPersonByProject()

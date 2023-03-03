@@ -92,7 +92,7 @@ namespace TimeTrackeConsoleApp
         }
 
         // Update "person"
-        public static int UpdatePersonData(string oldPersonName, string newPersonName)
+        public static int UpdatePersonData(string? oldPersonName, string newPersonName)
         {
             using (IDbConnection connection = new NpgsqlConnection(connectionString))
             {

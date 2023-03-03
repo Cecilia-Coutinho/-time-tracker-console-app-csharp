@@ -17,7 +17,7 @@ namespace TimeTrackeConsoleApp
             MenuItemText = menuItemText;
             Action = action;
         }
-        private static void DisplayMenuItems(string menuName, List<MenuSystem> menuItems, int menuIndex)
+        public static void DisplayMenuItems(string menuName, List<MenuSystem> menuItems, int menuIndex)
         {
             ForegroundColor = ConsoleColor.DarkCyan;
             WriteLine("\n\tUse arrow keys to navigate and press Enter to select.");
