@@ -69,7 +69,7 @@ namespace TimeTrackeConsoleApp
             string menuName = "Manage Person Menu";
             List<MenuSystem> managePersonMenuItems = new()
             {
-                new MenuSystem("Create New Person", PersonData.AddPerson),
+                new MenuSystem("Create Person", PersonData.AddPerson),
                 new MenuSystem("Edit Person", PersonData.UpdatePerson),
                 new MenuSystem("Return to Main Menu", DisplayMainMenu)
             };
