@@ -58,8 +58,7 @@ namespace TimeTrackeConsoleApp
                 new MenuSystem("View Reports", ViewReportsMenu),
                 new MenuSystem("Exit", Exit)
             };
-
-            MenuSystem.RunMenu(menuName, mainMenuItems);
+            RunMenu(menuName, mainMenuItems);
         }
 
         static void ManagePersonMenu()
@@ -202,8 +201,8 @@ namespace TimeTrackeConsoleApp
 
         static void Exit()
         {
-            Console.Clear();
-            Console.WriteLine("\n\tThank you for using the App. We look forward to your next visit!");
+            Clear();
+            WriteLine("\n\tThank you for using the App. We look forward to your next visit!");
             Thread.Sleep(1000);
             Environment.Exit(0);
         }
