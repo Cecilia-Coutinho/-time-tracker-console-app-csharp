@@ -45,18 +45,31 @@ namespace TimeTrackeConsoleApp
             Program.BannerMessageScreen();
             try
             {
+<<<<<<< HEAD
                 string? oldPersonName = ListPersonsForSelection();
                 Console.Write("\n\tEnter the new username: ");
                 string? newPersonName = Console.ReadLine();
                 if (string.IsNullOrEmpty(newPersonName))
+=======
+                Console.Write("\n\tEnter username you want update: ");
+                string? oldPersonName = Console.ReadLine()?.ToLower();
+                Console.Write("\n\tEnter the new username: ");
+                string? newPersonName = Console.ReadLine()?.ToLower();
+                if (string.IsNullOrEmpty(oldPersonName) || string.IsNullOrEmpty(newPersonName))
+>>>>>>> 76372852175f864d32cc78fc0d05acaa622667a3
                 {
                     Console.WriteLine($"\n\tError: It's not a valid Name.\n");
                     return;
                 }
                 else
                 {
+<<<<<<< HEAD
                     PostgresDataAccess.UpdatePersonData(oldPersonName, newPersonName.ToLower());
                     Console.WriteLine($"\tPerson successfully updated: {oldPersonName} is now {newPersonName}.");
+=======
+                    PostgresDataAccess.UpdatePersonData(oldPersonName, newPersonName);
+                    Console.WriteLine($"\tPerson successfully updated: {oldPersonName} now is {newPersonName}.");
+>>>>>>> 76372852175f864d32cc78fc0d05acaa622667a3
                 }
             }
             catch (Exception ex)
@@ -67,6 +80,7 @@ namespace TimeTrackeConsoleApp
                     $"\t{ex.Message}");
                 Console.ResetColor();
             }
+<<<<<<< HEAD
         }
 
         static string? ListPersonsForSelection()
@@ -119,6 +133,8 @@ namespace TimeTrackeConsoleApp
                 }
             }
             return null;
+=======
+>>>>>>> 76372852175f864d32cc78fc0d05acaa622667a3
         }
 
         public static void DisplayAllPersons()
