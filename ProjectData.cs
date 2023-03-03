@@ -21,10 +21,10 @@
                 {
                     ProjectData project = new()
                     {
-                        project_name = projectName,
+                        project_name = projectName.ToLower(),
                     };
                     PostgresDataAccess.CreateNewProjectData(project);
-                    Console.WriteLine($"\tNew project successfully added: {project.project_name}");
+                    Console.WriteLine($"\tNew project successfully added: {projectName}");
                 }
             }
             catch (Exception ex)

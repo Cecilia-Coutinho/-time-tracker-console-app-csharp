@@ -26,7 +26,8 @@ namespace TimeTrackeConsoleApp
                 {
                     ForegroundColor = ConsoleColor.DarkYellow;
                 }
-                Write($"\n\t {i + 1}. {menuItems[i].MenuItemText}");
+                string? menuItem = menuItems[i].MenuItemText;
+                Write($"\n\t {i + 1}. {menuItem}");
                 ResetColor();
             }
         }

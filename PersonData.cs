@@ -11,7 +11,7 @@
             try
             {
                 Console.Write("\n\tEnter username (UNIQUE): ");
-                string? personName = Console.ReadLine()?.ToLower();
+                string? personName = Console.ReadLine();
                 if (string.IsNullOrEmpty(personName))
                 {
                     Console.WriteLine($"\n\tError: It's not a valid Name.\n");
@@ -21,10 +21,10 @@
                 {
                     PersonData person = new()
                     {
-                        person_name = personName,
+                        person_name = personName?.ToLower(),
                     };
                     PostgresDataAccess.CreateNewPersonData(person);
-                    Console.WriteLine($"\tNew person successfully added: {person.person_name}");
+                    Console.WriteLine($"\tNew person successfully added: {personName}");
                 }
             }
             catch (Exception ex)
@@ -42,7 +42,7 @@
             Program.BannerMessageScreen();
             try
             {
-                Console.Write("\n\tEnter username you want update: ");
+                Console.Write("\n\tEnter username you want to update: ");
                 string? oldPersonName = Console.ReadLine()?.ToLower();
                 Console.Write("\n\tEnter the new username: ");
                 string? newPersonName = Console.ReadLine();
@@ -73,13 +73,15 @@
             List<PersonData> listPersons = PostgresDataAccess.GetListAllPersons();
             if (listPersons?.Count > 0)
             {
-                //Console.WriteLine($"Retrieved {listPersons.Count} users:");
                 Console.WriteLine($"\n\t{listPersons.Count} users found:".ToUpper());
                 int listIndex = listPersons.Count;
                 for (int i = 0; i < listIndex; i++)
                 {
+                    string? personName = listPersons[i].person_name;
+
+                    //Display List
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    Console.Write($"\n\t {i + 1}. {listPersons[i].person_name}\n");
+                    Console.Write($"\n\t {i + 1}. {personName}\n");
                     Console.ResetColor();
                 }
             }
