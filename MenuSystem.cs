@@ -19,12 +19,6 @@ namespace TimeTrackeConsoleApp
         }
         private static void DisplayMenuItems(string menuName, List<MenuSystem> menuItems, int menuIndex)
         {
-            ForegroundColor = ConsoleColor.DarkYellow;
-            WriteLine(@"         ____________________ ");
-            WriteLine(@"        |                    |");
-            WriteLine(@"        |  TIME TRACKER APP  |");
-            WriteLine(@"        |____________________|");
-            ResetColor();
             ForegroundColor = ConsoleColor.DarkCyan;
             WriteLine("\n\tUse arrow keys to navigate and press Enter to select.");
             WriteLine("\tPlease select one of the following options:\n");
@@ -83,7 +77,7 @@ namespace TimeTrackeConsoleApp
                     // Invoke the corresponding method
                     Clear();
                     selectedMenuItem.Action?.Invoke();
-                    WriteLine("Press any key to continue...");
+                    WriteLine("\n\tPress any key to continue...");
                     ReadKey();
                 }
                 else

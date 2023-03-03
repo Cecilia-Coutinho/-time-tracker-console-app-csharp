@@ -8,14 +8,6 @@ namespace TimeTrackeConsoleApp
     {
         static void Main(string[] args)
         {
-            //Helper.TestCreatingNewPerson();
-            //Helper.TestGettingPersonByName();
-            //Helper.TestGetListAllPerson();
-            //Helper.TestUpdatePerson();
-            //Helper.TestDeletePerson();
-            //Helper.TestGetHoursByProjectName("coding");
-            //Helper.TestGetHoursByPersonName("maria.rosa");
-            //Helper.TestUpdateTimeEntry();
             //
             WelcomeMessageScreen();
             DisplayMainMenu();
@@ -46,6 +38,16 @@ namespace TimeTrackeConsoleApp
             ReadLine();
         }
 
+        public static void BannerMessageScreen()
+        {
+            ForegroundColor = ConsoleColor.DarkYellow;
+            WriteLine(@"         ____________________ ");
+            WriteLine(@"        |                    |");
+            WriteLine(@"        |  TIME TRACKER APP  |");
+            WriteLine(@"        |____________________|");
+            ResetColor();
+        }
+
         static void DisplayMainMenu()
         {
             Thread.Sleep(20);
@@ -58,18 +60,20 @@ namespace TimeTrackeConsoleApp
                 new MenuSystem("View Reports", ViewReportsMenu),
                 new MenuSystem("Exit", Exit)
             };
+            BannerMessageScreen();
             RunMenu(menuName, mainMenuItems);
         }
 
-        static void ManagePersonMenu()
+        public static void ManagePersonMenu()
         {
             string menuName = "Manage Person Menu";
             List<MenuSystem> managePersonMenuItems = new()
             {
-                new MenuSystem("Create Person", PersonData.CreatePerson),
+                new MenuSystem("Create New Person", PersonData.AddPerson),
                 new MenuSystem("Edit Person", PersonData.UpdatePerson),
                 new MenuSystem("Return to Main Menu", DisplayMainMenu)
             };
+            BannerMessageScreen();
             RunMenu(menuName, managePersonMenuItems);
         }
 
@@ -82,6 +86,7 @@ namespace TimeTrackeConsoleApp
                 new MenuSystem("Edit Project", ProjectData.UpdateProject),
                 new MenuSystem("Return to Main Menu", DisplayMainMenu)
             };
+            BannerMessageScreen();
             RunMenu(menuName, manageProjectMenuItems);
         }
 
@@ -94,6 +99,7 @@ namespace TimeTrackeConsoleApp
                 new MenuSystem("Edit Time Entry", TimeEntryData.UpdateTimeEntry),
                 new MenuSystem("Return to Main Menu", DisplayMainMenu)
             };
+            BannerMessageScreen();
             RunMenu(menuName, manageTimeEntryMenuItems);
         }
 
@@ -107,6 +113,7 @@ namespace TimeTrackeConsoleApp
                 new MenuSystem("View Time Entries Report", TimeEntryReportMenu),
                 new MenuSystem("Return to Main Menu", DisplayMainMenu)
             };
+            BannerMessageScreen();
             RunMenu(menuName, viewReportsMenuItems);
         }
 
@@ -121,6 +128,7 @@ namespace TimeTrackeConsoleApp
                 new MenuSystem("Return to Previous Menu", ViewReportsMenu),
                 new MenuSystem("Return to Main Menu", DisplayMainMenu)
             };
+            BannerMessageScreen();
             RunMenu(menuName, PersonReportsMenuItems);
         }
 
@@ -135,6 +143,7 @@ namespace TimeTrackeConsoleApp
                 new MenuSystem("Return to Previous Menu", ViewReportsMenu),
                 new MenuSystem("Return to Main Menu", DisplayMainMenu)
             };
+            BannerMessageScreen();
             RunMenu(menuName, ProjectReportsMenuItems);
         }
 
@@ -148,6 +157,7 @@ namespace TimeTrackeConsoleApp
                 new MenuSystem("Return to Previous Menu", ViewReportsMenu),
                 new MenuSystem("Return to Main Menu", DisplayMainMenu)
             };
+            BannerMessageScreen();
             RunMenu(menuName, TimeEntryReportsMenuItems);
         }
 
@@ -160,6 +170,7 @@ namespace TimeTrackeConsoleApp
                 new MenuSystem("Return to Previous Menu", PersonReportMenu),
                 new MenuSystem("Return to Main Menu", DisplayMainMenu)
             };
+            BannerMessageScreen();
             RunMenu(menuName, displayPersonByProjectMenuItems);
         }
 
@@ -172,6 +183,7 @@ namespace TimeTrackeConsoleApp
                 new MenuSystem("Return to Previous Menu", ProjectReportMenu),
                 new MenuSystem("Return to Main Menu", DisplayMainMenu)
             };
+            BannerMessageScreen();
             RunMenu(menuName, displayProjectByPersonMenuItems);
         }
 
@@ -184,6 +196,7 @@ namespace TimeTrackeConsoleApp
                 new MenuSystem("Return to Previous Menu", TimeEntryReportMenu),
                 new MenuSystem("Return to Main Menu", DisplayMainMenu)
             };
+            BannerMessageScreen();
             RunMenu(menuName, displayTimeEntriesByPersonMenuItems);
         }
 
@@ -196,9 +209,9 @@ namespace TimeTrackeConsoleApp
                 new MenuSystem("Return to Previous Menu", TimeEntryReportMenu),
                 new MenuSystem("Return to Main Menu", DisplayMainMenu)
             };
+            BannerMessageScreen();
             RunMenu(menuName, displayTimeEntriesByProjectMenuItems);
         }
-
         static void Exit()
         {
             Clear();
