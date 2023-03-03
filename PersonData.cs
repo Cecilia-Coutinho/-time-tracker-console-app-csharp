@@ -1,7 +1,4 @@
-﻿using System.Globalization;
-using static System.Console;
-
-namespace TimeTrackeConsoleApp
+﻿namespace TimeTrackeConsoleApp
 {
     internal class PersonData
     {
@@ -72,9 +69,24 @@ namespace TimeTrackeConsoleApp
 
         public static void DisplayAllPersons()
         {
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("coming soon");
-            Console.ResetColor();
+            List<PersonData> listPersons = PostgresDataAccess.GetListAllPersons();
+            if (listPersons?.Count > 0)
+            {
+                //Console.WriteLine($"Retrieved {listPersons.Count} users:");
+                string menuName = $"{listPersons.Count} users found";
+                List<MenuSystem> personToSelect = new();
+                foreach (PersonData person in listPersons)
+                {
+                    //Console.WriteLine($"Person Name: {person.person_name}");
+                    personToSelect.Add(new MenuSystem($"{person.person_name}", () => Console.WriteLine($"")));
+                }
+                Program.BannerMessageScreen();
+                MenuSystem.RunMenu(menuName, personToSelect);
+            }
+            else
+            {
+                Console.WriteLine("No persons found");
+            }
 
         }
 

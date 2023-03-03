@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Console;
+﻿using static System.Console;
 
 namespace TimeTrackeConsoleApp
 {
@@ -17,7 +12,7 @@ namespace TimeTrackeConsoleApp
             MenuItemText = menuItemText;
             Action = action;
         }
-        public static void DisplayMenuItems(string menuName, List<MenuSystem> menuItems, int menuIndex)
+        private static void DisplayMenuItems(string menuName, List<MenuSystem> menuItems, int menuIndex)
         {
             ForegroundColor = ConsoleColor.DarkCyan;
             WriteLine("\n\tUse arrow keys to navigate and press Enter to select.");

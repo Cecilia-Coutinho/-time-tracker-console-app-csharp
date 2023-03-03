@@ -1,10 +1,7 @@
 ﻿using Dapper;
 using Npgsql;
-using System;
 using System.Configuration;
 using System.Data;
-using System.Globalization;
-using System.Net.WebSockets;
 
 namespace TimeTrackeConsoleApp
 {
