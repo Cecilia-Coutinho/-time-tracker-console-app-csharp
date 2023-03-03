@@ -50,7 +50,7 @@ namespace TimeTrackeConsoleApp
         {
             Thread.Sleep(20);
             string menuName = "Main Menu";
-            List<MenuSystem> mainMenuItems = new List<MenuSystem>
+            List<MenuSystem> mainMenuItems = new()
             {
                 new MenuSystem("Manage Person", ManagePersonMenu),
                 new MenuSystem("Manage Project", ManageProjectMenu),
@@ -65,7 +65,7 @@ namespace TimeTrackeConsoleApp
         static void ManagePersonMenu()
         {
             string menuName = "Manage Person Menu";
-            List<MenuSystem> managePersonMenuItems = new List<MenuSystem>
+            List<MenuSystem> managePersonMenuItems = new()
             {
                 new MenuSystem("Create Person", PersonData.CreatePerson),
                 new MenuSystem("Edit Person", PersonData.UpdatePerson),
@@ -77,7 +77,7 @@ namespace TimeTrackeConsoleApp
         static void ManageProjectMenu()
         {
             string menuName = "Manage Project Menu";
-            List<MenuSystem> manageProjectMenuItems = new List<MenuSystem>
+            List<MenuSystem> manageProjectMenuItems = new()
             {
                 new MenuSystem("Create Project", ProjectData.CreateProject),
                 new MenuSystem("Edit Project", ProjectData.UpdateProject),
@@ -89,7 +89,7 @@ namespace TimeTrackeConsoleApp
         static void ManageTimeEntryMenu()
         {
             string menuName = "Manage Time Entry Menu";
-            List<MenuSystem> manageTimeEntryMenuItems = new List<MenuSystem>
+            List<MenuSystem> manageTimeEntryMenuItems = new()
             {
                 new MenuSystem("Create Time Entry", TimeEntryData.CreateTimeEntry),
                 new MenuSystem("Edit Time Entry", TimeEntryData.UpdateTimeEntry),
@@ -101,7 +101,7 @@ namespace TimeTrackeConsoleApp
         static void ViewReportsMenu()
         {
             string menuName = "View Report Menu";
-            List<MenuSystem> viewReportsMenuItems = new List<MenuSystem>
+            List<MenuSystem> viewReportsMenuItems = new()
             {
                 new MenuSystem("View Persons Report", PersonReportMenu),
                 new MenuSystem("View Projects Report", ProjectReportMenu),
@@ -115,7 +115,7 @@ namespace TimeTrackeConsoleApp
         {
             string menuName = "Person Report Menu";
 
-            List<MenuSystem> PersonReportsMenuItems = new List<MenuSystem>
+            List<MenuSystem> PersonReportsMenuItems = new()
             {
                 new MenuSystem("Display All Persons", PersonData.DisplayAllPersons),
                 new MenuSystem("Display Persons By Project", DisplayPersonByProjectMenu),
@@ -129,7 +129,7 @@ namespace TimeTrackeConsoleApp
         {
             string menuName = "Project Report Menu";
 
-            List<MenuSystem> ProjectReportsMenuItems = new List<MenuSystem>
+            List<MenuSystem> ProjectReportsMenuItems = new()
             {
                 new MenuSystem("Display All Projects", ProjectData.DisplayAllProjects),
                 new MenuSystem("Display Projects By Person", DisplayProjectByPersonMenu),
@@ -142,7 +142,7 @@ namespace TimeTrackeConsoleApp
         static void TimeEntryReportMenu()
         {
             string menuName = "Time Entry Report Menu";
-            List<MenuSystem> TimeEntryReportsMenuItems = new List<MenuSystem>
+            List<MenuSystem> TimeEntryReportsMenuItems = new()
             {
                 new MenuSystem("Display All Time Entries By Person", DisplayTimeEntriesByPersonMenu),
                 new MenuSystem("Display All Time Entries By Project", DisplayTimeEntriesByProjectMenu),
@@ -155,7 +155,7 @@ namespace TimeTrackeConsoleApp
         static void DisplayPersonByProjectMenu()
         {
             string menuName = "Person By Project Report Menu";
-            List<MenuSystem> displayPersonByProjectMenuItems = new List<MenuSystem>
+            List<MenuSystem> displayPersonByProjectMenuItems = new()
             {
                 new MenuSystem("Select Project", PersonData.DisplayPersonByProject),
                 new MenuSystem("Return to Previous Menu", PersonReportMenu),
@@ -167,7 +167,7 @@ namespace TimeTrackeConsoleApp
         static void DisplayProjectByPersonMenu()
         {
             string menuName = "Project By Person Report Menu";
-            List<MenuSystem> displayProjectByPersonMenuItems = new List<MenuSystem>
+            List<MenuSystem> displayProjectByPersonMenuItems = new()
             {
                 new MenuSystem("Select Person", ProjectData.DisplayProjectByPerson),
                 new MenuSystem("Return to Previous Menu", ProjectReportMenu),
@@ -179,7 +179,7 @@ namespace TimeTrackeConsoleApp
         static void DisplayTimeEntriesByPersonMenu()
         {
             string menuName = "Time Entries By Person Report Menu";
-            List<MenuSystem> displayTimeEntriesByPersonMenuItems = new List<MenuSystem>
+            List<MenuSystem> displayTimeEntriesByPersonMenuItems = new()
             {
                 new MenuSystem("Select Person", TimeEntryData.DisplayAllTimeEntriesByPerson),
                 new MenuSystem("Return to Previous Menu", TimeEntryReportMenu),
@@ -191,7 +191,7 @@ namespace TimeTrackeConsoleApp
         static void DisplayTimeEntriesByProjectMenu()
         {
             string menuName = "Time Entries By Project Report Menu";
-            List<MenuSystem> displayTimeEntriesByProjectMenuItems = new List<MenuSystem>
+            List<MenuSystem> displayTimeEntriesByProjectMenuItems = new()
             {
                 new MenuSystem("Select Project", TimeEntryData.DisplayAllTimeEntriesByProject),
                 new MenuSystem("Return to Previous Menu", TimeEntryReportMenu),
@@ -206,11 +206,6 @@ namespace TimeTrackeConsoleApp
             Console.WriteLine("\n\tThank you for using the App. We look forward to your next visit!");
             Thread.Sleep(1000);
             Environment.Exit(0);
-        }
-        static void GoBackMenuOption()
-        {
-            Console.WriteLine("\n\tPress ENTER to go back.\n");
-            Console.ReadLine();
         }
     }
 }

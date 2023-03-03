@@ -25,20 +25,20 @@ namespace TimeTrackeConsoleApp
             WriteLine(@"        |  TIME TRACKER APP  |");
             WriteLine(@"        |____________________|");
             ResetColor();
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("\n\tUse arrow keys to navigate and press Enter to select.");
-            Console.WriteLine("\tPlease select one of the following options:\n");
-            Console.ResetColor();
-            Console.WriteLine($"\t {menuName.ToUpper()}:");
+            ForegroundColor = ConsoleColor.DarkCyan;
+            WriteLine("\n\tUse arrow keys to navigate and press Enter to select.");
+            WriteLine("\tPlease select one of the following options:\n");
+            ResetColor();
+            WriteLine($"\t {menuName.ToUpper()}:");
             int maxIndexToSelect = menuItems.Count;
             for (int i = 0; i < maxIndexToSelect; i++)
             {
                 if (i == menuIndex - 1)
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    ForegroundColor = ConsoleColor.DarkYellow;
                 }
-                Console.Write($"\n\t {i + 1}. {menuItems[i].MenuItemText}");
-                Console.ResetColor();
+                Write($"\n\t {i + 1}. {menuItems[i].MenuItemText}");
+                ResetColor();
             }
         }
 
@@ -75,7 +75,7 @@ namespace TimeTrackeConsoleApp
             {
                 Clear();
                 DisplayMenuItems(menuName, menuItems, menuIndex);
-                keyInfo = Console.ReadKey(true);
+                keyInfo = ReadKey(true);
 
                 if (keyInfo.Key == ConsoleKey.Enter)
                 {
