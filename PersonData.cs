@@ -89,7 +89,6 @@
             {
                 Console.WriteLine("No persons found");
             }
-
         }
 
         public static void DisplayPersonByProject()

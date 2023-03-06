@@ -14,6 +14,7 @@ namespace TimeTrackeConsoleApp
         }
         private static void DisplayMenuItems(string menuName, List<MenuSystem> menuItems, int menuIndex)
         {
+            Program.BannerMessageScreen();
             ForegroundColor = ConsoleColor.DarkCyan;
             WriteLine("\n\tUse arrow keys to navigate and press Enter to select.");
             WriteLine("\tPlease select one of the following options:\n");
