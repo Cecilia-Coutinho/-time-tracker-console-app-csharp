@@ -11,7 +11,7 @@
             try
             {
                 Console.Write("\n\tEnter Project Name (UNIQUE): ");
-                string? projectName = Console.ReadLine()?.ToLower();
+                string? projectName = Console.ReadLine();
                 if (string.IsNullOrEmpty(projectName))
                 {
                     Console.WriteLine($"\n\tError: It's not a valid Project Name.\n");

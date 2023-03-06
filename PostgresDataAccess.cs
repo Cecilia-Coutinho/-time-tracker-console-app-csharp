@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Npgsql;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 
@@ -44,7 +45,7 @@ namespace TimeTrackeConsoleApp
         }
 
         // Retrieve "person" by name
-        public static PersonData GetPersonDataByName(string personName)
+        public static PersonData GetPersonDataByName(string? personName)
         {
             using (IDbConnection connection = new NpgsqlConnection(connectionString))
             {
@@ -168,7 +169,7 @@ namespace TimeTrackeConsoleApp
         }
 
         // Retrieve project by name
-        public static ProjectData GetProjectDataByName(string projectName)
+        public static ProjectData GetProjectDataByName(string? projectName)
         {
             using (IDbConnection connection = new NpgsqlConnection(connectionString))
             {
@@ -176,7 +177,7 @@ namespace TimeTrackeConsoleApp
                 {
                     connection.Open();
                     string sql = "SELECT * FROM csrc_project WHERE project_name = @project_name";
-                    return connection.QuerySingleOrDefault<ProjectData>(sql, new { person_name = projectName });
+                    return connection.QuerySingleOrDefault<ProjectData>(sql, new { project_name = projectName });
                 }
                 catch (NpgsqlException ex)
                 {
@@ -266,7 +267,7 @@ namespace TimeTrackeConsoleApp
         }
 
         // Create a timeEntry
-        public static void CreateNewTimeEntryData(TimeEntryData timeEntry)
+        public static void CreateNewTimeEntryData(string? personName, string? projectName, TimeEntryData timeEntry)
         {
             using (IDbConnection connection = new NpgsqlConnection(connectionString))
             {
@@ -276,21 +277,31 @@ namespace TimeTrackeConsoleApp
                     try
                     {
                         string sql = "INSERT INTO csrc_project_person (project_id, person_id, hours, date) " +
-                        "VALUES (@project_id, @person_id, @hours, @date)";
+                        "VALUES( " +
+                        "(SELECT id FROM csrc_project WHERE csrc_project.project_name = @project_name), " +
+                        "(SELECT id FROM csrc_person WHERE csrc_person.person_name = @person_name), " +
+                        "@hours, @date)";
 
-                        var parameters = new DynamicParameters(timeEntry);
+                        var parameters = new
+                        {
+                            hours = timeEntry.hours,
+                            date = timeEntry.date,
+                            person_name = personName,
+                            project_name = projectName
+                        };
+
                         connection.Execute(sql, parameters, transaction: transaction);
                         transaction.Commit();
                     }
                     catch (NpgsqlException ex)
                     {
                         transaction.Rollback();
-                        throw new Exception("Error creating hours(PostgreSQL-related)", ex);
+                        throw new Exception("Error creating new Time Entry(PostgreSQL-related)", ex);
                     }
                     catch (Exception ex)
                     {
                         transaction.Rollback();
-                        throw new Exception("Ops! Something happened... Error creating hours!", ex);
+                        throw new Exception("Ops! Something happened... Error creating new Time Entry!", ex);
                     }
                 }
             }
@@ -324,7 +335,7 @@ namespace TimeTrackeConsoleApp
         }
 
         // Retrieve a list of timeEntry per "person" name
-        public static List<TimeEntryData> GetTimeDataByPersonName(string personName)
+        public static List<TimeEntryData> GetTimeDataByPersonName(string? personName)
         {
             using (IDbConnection connection = new NpgsqlConnection(connectionString))
             {
