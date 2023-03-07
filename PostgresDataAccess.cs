@@ -136,17 +136,17 @@ namespace TimeTrackeConsoleApp
 
                     if (rowsAffected == 0)
                     {
-                        throw new Exception("Update failed, any rows affected.");
+                        throw new Exception("\n\tFailed.");
                     }
                     return rowsAffected;
                 }
                 catch (NpgsqlException ex)
                 {
-                    throw new Exception("Error updating person(PostgreSQL-related)" + ex.Message);
+                    throw new Exception("\n\tError updating person. (PostgreSQL-related)" + ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Ops! Something happened... Error updating person" + ex.Message);
+                    throw new Exception("\n\tError updating person." + ex.Message);
                 }
             }
         }
@@ -280,24 +280,24 @@ namespace TimeTrackeConsoleApp
                     connection.Open();
                     string sql = "UPDATE csrc_project SET " +
                         "project_name = @new_project_name " +
-                        "WHERE person_name = @old_project_name";
+                        "WHERE project_name = @old_project_name";
 
                     var parameters = new { old_project_name = oldProjectName, new_project_name = newProjectName };
                     int rowsAffected = connection.Execute(sql, parameters);
 
                     if (rowsAffected == 0)
                     {
-                        throw new Exception("Update failed, no rows affected.");
+                        throw new Exception("\n\tFailed.");
                     }
                     return rowsAffected;
                 }
                 catch (NpgsqlException ex)
                 {
-                    throw new Exception("Error updating project(PostgreSQL-related)" + ex.Message);
+                    throw new Exception("\n\tError (PostgreSQL-related)." + ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Ops! Something happened... Error updating project" + ex.Message);
+                    throw new Exception("\n\tError updating project. " + ex.Message);
                 }
             }
         }

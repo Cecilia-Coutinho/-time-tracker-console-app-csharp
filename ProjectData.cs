@@ -8,31 +8,30 @@
         public static void AddProject()
         {
             Program.BannerMessageScreen();
+
+            Console.Write("\n\tEnter Project Name (UNIQUE): ");
+            string? projectName = Console.ReadLine();
+
+            if (string.IsNullOrEmpty(projectName))
+            {
+                Console.WriteLine($"\n\tError: It's not a valid Project Name.\n");
+                return;
+            }
+
             try
             {
-                Console.Write("\n\tEnter Project Name (UNIQUE): ");
-                string? projectName = Console.ReadLine();
-                if (string.IsNullOrEmpty(projectName))
+                ProjectData project = new()
                 {
-                    Console.WriteLine($"\n\tError: It's not a valid Project Name.\n");
-                    return;
-                }
-                else
-                {
-                    ProjectData project = new()
-                    {
-                        project_name = projectName.ToLower(),
-                    };
-                    PostgresDataAccess.CreateNewProjectData(project);
-                    Console.WriteLine($"\tNew project successfully added: {projectName}");
-                }
+                    project_name = projectName.ToLower(),
+                };
+                PostgresDataAccess.CreateNewProjectData(project);
+                Console.WriteLine($"\tNew project successfully added: {projectName}");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"\n\tError: The provided project name is either already in use\n" +
-                    $"\tor exceeds the maximum length of 100 characters.\n" +
-                    $"\t{ex.Message}");
+                    $"\tor exceeds the maximum length of 100 characters.");
                 Console.ResetColor();
             }
         }
@@ -40,28 +39,27 @@
         public static void UpdateProject()
         {
             Program.BannerMessageScreen();
+
+            Console.Write("\n\tEnter project name you want to update: ");
+            string? oldProjectName = Console.ReadLine();
+            Console.Write("\n\tEnter the new project name: ");
+            string? newProjectName = Console.ReadLine();
+
+            if (string.IsNullOrEmpty(oldProjectName) || string.IsNullOrEmpty(newProjectName))
+            {
+                Console.WriteLine($"\n\tError: It's not a valid Project.\n");
+                return;
+            }
+
             try
             {
-                Console.Write("\n\tEnter project name you want to update: ");
-                string? oldProjectName = Console.ReadLine()?.ToLower();
-                Console.Write("\n\tEnter the new project name: ");
-                string? newProjectName = Console.ReadLine();
-                if (string.IsNullOrEmpty(oldProjectName) || string.IsNullOrEmpty(newProjectName))
-                {
-                    Console.WriteLine($"\n\tError: It's not a valid Project.\n");
-                    return;
-                }
-                else
-                {
-                    PostgresDataAccess.UpdatePersonData(oldProjectName, newProjectName.ToLower());
-                    Console.WriteLine($"\tProject successfully updated: {oldProjectName} now is {newProjectName}.");
-                }
+                PostgresDataAccess.UpdateProjectData(oldProjectName.ToLower(), newProjectName.ToLower());
+                Console.WriteLine($"\tProject successfully updated: {oldProjectName.ToLower()} now is {newProjectName.ToLower()}.");
             }
             catch (Exception ex)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\n\tError: The provided project name is either already in use\n" +
-                    $"\tor exceeds the maximum length of 25 characters.\n" +
+                Console.WriteLine($"\n\tError! Please check your data and try again." +
                     $"\t{ex.Message}");
                 Console.ResetColor();
             }

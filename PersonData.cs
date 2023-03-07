@@ -10,31 +10,28 @@ namespace TimeTrackeConsoleApp
         public static void AddPerson()
         {
             Program.BannerMessageScreen();
+
+            Console.Write("\n\tEnter username (UNIQUE): ");
+            string? personName = Console.ReadLine();
+            if (string.IsNullOrEmpty(personName))
+            {
+                Console.WriteLine($"\n\tError: It's not a valid Name.\n");
+                return;
+            }
             try
             {
-                Console.Write("\n\tEnter username (UNIQUE): ");
-                string? personName = Console.ReadLine();
-                if (string.IsNullOrEmpty(personName))
+                PersonData person = new()
                 {
-                    Console.WriteLine($"\n\tError: It's not a valid Name.\n");
-                    return;
-                }
-                else
-                {
-                    PersonData person = new()
-                    {
-                        person_name = personName?.ToLower(),
-                    };
-                    PostgresDataAccess.CreateNewPersonData(person);
-                    Console.WriteLine($"\tNew person successfully added: {personName}");
-                }
+                    person_name = personName?.ToLower(),
+                };
+                PostgresDataAccess.CreateNewPersonData(person);
+                Console.WriteLine($"\tNew person successfully added: {personName}");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"\n\tError: The provided name is either already in use\n" +
-                    $"\tor exceeds the maximum length of 25 characters.\n" +
-                    $"\t{ex.Message}");
+                    $"\tor exceeds the maximum length of 25 characters.");
                 Console.ResetColor();
             }
         }
@@ -42,29 +39,27 @@ namespace TimeTrackeConsoleApp
         public static void UpdatePerson()
         {
             Program.BannerMessageScreen();
+
+            Console.Write("\n\tEnter username you want to update: ");
+            string? oldPersonName = Console.ReadLine()?.ToLower();
+            Console.Write("\n\tEnter the new username: ");
+            string? newPersonName = Console.ReadLine();
+
+            if (string.IsNullOrEmpty(oldPersonName) || string.IsNullOrEmpty(newPersonName))
+            {
+                Console.WriteLine($"\n\tError: It's not a valid Name.\n");
+                return;
+            }
+
             try
             {
-                Console.Write("\n\tEnter username you want to update: ");
-                string? oldPersonName = Console.ReadLine()?.ToLower();
-                Console.Write("\n\tEnter the new username: ");
-                string? newPersonName = Console.ReadLine();
-                if (string.IsNullOrEmpty(oldPersonName) || string.IsNullOrEmpty(newPersonName))
-                {
-                    Console.WriteLine($"\n\tError: It's not a valid Name.\n");
-                    return;
-                }
-                else
-                {
-                    PostgresDataAccess.UpdatePersonData(oldPersonName, newPersonName.ToLower());
-                    Console.WriteLine($"\tPerson successfully updated: {oldPersonName} now is {newPersonName}.");
-                }
+                PostgresDataAccess.UpdatePersonData(oldPersonName, newPersonName.ToLower());
+                Console.WriteLine($"\tPerson successfully updated: {oldPersonName} now is {newPersonName}.");
             }
             catch (Exception ex)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\n\tError: The provided name is either already in use\n" +
-                    $"\tor exceeds the maximum length of 25 characters.\n" +
-                    $"\t{ex.Message}");
+                Console.WriteLine($"\n\tError! Please check your data and try again. " + ex.Message);
                 Console.ResetColor();
             }
         }

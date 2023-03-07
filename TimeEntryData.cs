@@ -14,53 +14,48 @@ namespace TimeTrackeConsoleApp
         public static void CreateTimeEntry()
         {
             Program.BannerMessageScreen();
+            //get person and project name
+            string? personName = PersonData.GetPersonFromDB();
+            string? projectName = ProjectData.GetProjectFromDB();
+
+            //get timeEntries inputs:
+            Console.Write("\n\tEnter Time Entry (in hours): ");
+            int.TryParse(Console.ReadLine(), out int timeInHours);
+
+            Console.Write("\n\tEnter Date (dd-MM-yyyy): ");
+            string? strDateEntry = Console.ReadLine();
+
+            //validate nullability
+            if (
+                string.IsNullOrEmpty(personName) ||
+                string.IsNullOrEmpty(projectName) ||
+                string.IsNullOrEmpty(strDateEntry)
+                )
+            {
+                Console.WriteLine($"\n\tError: It's not a valid input.\n");
+                return;
+            }
+
             try
             {
-                //get person and project name
-                string? personName = PersonData.GetPersonFromDB();
-                string? projectName = ProjectData.GetProjectFromDB();
-
-                //get timeEntries inputs:
-                Console.Write("\n\tEnter Time Entry (in hours): ");
-                int.TryParse(Console.ReadLine(), out int timeInHours);
-
-                Console.Write("\n\tEnter Date (dd-MM-yyyy): ");
-                string? strDateEntry = Console.ReadLine();
-
-                //validate nullability
-                if (
-                    string.IsNullOrEmpty(personName) ||
-                    string.IsNullOrEmpty(projectName) ||
-                    string.IsNullOrEmpty(strDateEntry)
-                    )
+                DateTime dateEntry = ParseStringToDate(strDateEntry);
+                TimeEntryData newTimeEntry = new()
                 {
-                    Console.WriteLine($"\n\tError: It's not a valid input.\n");
-                    return;
-                }
-                else
-                {
-                    try
-                    {
-                        DateTime dateEntry = ParseStringToDate(strDateEntry);
-                        TimeEntryData newTimeEntry = new()
-                        {
-                            hours = timeInHours,
-                            date = dateEntry
-                        };
+                    hours = timeInHours,
+                    date = dateEntry
+                };
 
-                        PostgresDataAccess.CreateNewTimeEntryData(personName, projectName, newTimeEntry);
-                        Console.WriteLine($"\n\tNew time Entry successfully added:\n " +
-                            $"\t{personName}:: {projectName}: {timeInHours}, {dateEntry.ToString("dd-MM-yyyy")}");
+                PostgresDataAccess.CreateNewTimeEntryData(personName, projectName, newTimeEntry);
+                Console.WriteLine($"\n\tNew time Entry successfully added:\n " +
+                    $"\t{personName}:: project '{projectName}': {timeInHours}hrs, {dateEntry.ToString("dd-MM-yyyy")}");
 
-                    }
-                    catch (FormatException ex)
-                    {
-                        string invalidFormat = "\n\tDate in wrong format: " + ex.Message;
-                        Console.WriteLine(invalidFormat);
-                    }
-                }
             }
-            catch (Exception ex) //error handling for database errors
+            catch (FormatException ex)
+            {
+                string invalidFormat = "\n\tDate in wrong format: " + ex.Message;
+                Console.WriteLine(invalidFormat);
+            }
+            catch (Exception ex)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"\n\tError: The provided data is not valid\n" +
@@ -79,14 +74,6 @@ namespace TimeTrackeConsoleApp
             }
             return DateTime.ParseExact(dateString, dateFormat, CultureInfo.InvariantCulture);
         }
-
-        static string ParseDateToString(DateTime date)
-        {
-            string dateFormat = "dd-MM-yyyy";
-            string dateString = date.ToString(dateFormat);
-            return dateString;
-        }
-
         public static void UpdateTimeEntry()
         {
             Program.BannerMessageScreen();
@@ -102,33 +89,31 @@ namespace TimeTrackeConsoleApp
                 //get new inputs
                 Console.Write("\n\tEnter the new date (dd-MM-yyyy): ");
                 string? newDateString = Console.ReadLine();
-                Console.Write("\n\tEnter the new time entry: ");
+                Console.Write("\n\tEnter the new time entry (in hours): ");
                 int.TryParse(Console.ReadLine(), out int newTimeInHours);
 
-                try
-                {
-                    DateTime newDate = ParseStringToDate(newDateString);
 
-                    TimeEntryUpdateData updateData = new()
-                    {
-                        PersonName = personName,
-                        ProjectName = projectName,
-                        OldDate = oldDate ?? DateTime.MinValue, //to check nullability and set default value
-                        NewDate = newDate,
-                        NewHours = newTimeInHours
-                    };
-                    PostgresDataAccess.UpdateTimeEntryData(updateData);
+                DateTime newDate = ParseStringToDate(newDateString);
 
-                    Console.WriteLine($"\n\tTime Entry successfully changed:\n " +
-                        $"\t{personName}:: {projectName}: {newTimeInHours},  {newDate.ToString("dd-MM-yyyy")}");
-                }
-                catch (FormatException ex)
+                TimeEntryUpdateData updateData = new()
                 {
-                    string invalidFormat = "\n\tDate in wrong format: " + ex.Message;
-                    Console.WriteLine(invalidFormat);
-                }
+                    PersonName = personName,
+                    ProjectName = projectName,
+                    OldDate = oldDate ?? DateTime.MinValue, //to check nullability and set default value
+                    NewDate = newDate,
+                    NewHours = newTimeInHours
+                };
+                PostgresDataAccess.UpdateTimeEntryData(updateData);
+
+                Console.WriteLine($"\n\tTime Entry successfully changed:\n " +
+                    $"\t{personName}:: project '{projectName}': {newTimeInHours} hrs,  {newDate.ToString("dd-MM-yyyy")}");
             }
-            catch (Exception ex) //error handling for database errors
+            catch (FormatException ex)
+            {
+                string invalidFormat = "\n\tDate in wrong format: " + ex.Message;
+                Console.WriteLine(invalidFormat);
+            }
+            catch (Exception ex)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"\n\tError: The provided data is not valid\n" +
@@ -200,7 +185,7 @@ namespace TimeTrackeConsoleApp
                     int hoursEntry = listEntries[i].hours;
                     DateTime dateEntry = listEntries[i].date;
 
-                    Console.Write($"\n\t{dateEntry.ToString("dd-MM-yyyy")}: {hoursEntry} hrs;\n");
+                    Console.Write($"\n\t{i + 1}. {dateEntry.ToString("dd-MM-yyyy")}: {hoursEntry} hrs;\n");
 
                     totalHours += hoursEntry;
                 }

@@ -8,7 +8,6 @@ namespace TimeTrackeConsoleApp
     {
         static void Main(string[] args)
         {
-            //
             WelcomeMessageScreen();
             DisplayMainMenu();
         }
