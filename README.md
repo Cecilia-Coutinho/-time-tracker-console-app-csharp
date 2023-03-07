@@ -4,12 +4,10 @@
 by <a href="https://github.com/Cecilia-Coutinho">Cecilia Coutinho</a>
 </p>
 
-<h2>🌍 This app is a work in progress...</h2>
-
 <h2>🌍 Overview</h2>
 
 <p align = center>
-The Time Tracker Console Application is a software solution designed to track time spent on various activities within a project. The application will provide a user-friendly interface that enables users to create persons and projects, insert time to a specific project, and edit persons, projects, and time. Additionally, the application will prevent the creation of insertions by id. The solution will utilize C# as the primary language and will be developed using .NET6.
+The Time Tracker Console Application is a software solution designed to track time spent on various activities within a project. The application provide a user-friendly interface that enables users to create persons and projects, insert time to a specific project, and edit persons, projects, and time. Additionally, the application prevents the creation of insertions by id. The solution was made using C# as the primary language and developed using .NET6.
 
 <h2>📋 MVP</h2>
 <p>
@@ -19,16 +17,16 @@ The MVP (Minimum Viable Product) of the Time Tracker Console App will include th
 <li>Basic user interface and data visualization</li>
 <li>Menu allowing users to create persons and projects</li>
 <li>Ability to insert time to specific projects</li>
+<li>Menu allowing users to edit persons, projects, and time</li>
 <li>Basic reporting features, including a summary of time spent on each project</li>
 </ul>
 
 <h2>🎯 Additional Features:</h2>
 <p ><img align="center" width="500" src="./.github/first_level.svg#gh-dark-mode-only"/></p>
 <p>
-The Time Tracker Console Application could have the following additional features:
+The Time Tracker Console Application could include the following additional features in later stages:
 </p>
 <ul>
-<li>Edit persons, projects, and time</li>
 <li>Export of time entries to a CSV file</li>
 <li>User-defined categories for time entries (e.g., coding, meetings, research)</li>
 </ul>
