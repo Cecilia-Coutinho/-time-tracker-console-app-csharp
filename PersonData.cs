@@ -95,9 +95,38 @@ namespace TimeTrackeConsoleApp
 
         public static void DisplayPersonByProject()
         {
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("coming soon");
-            Console.ResetColor();
+            Program.BannerMessageScreen();
+            Console.Write("\n\tEnter Project Name: ");
+            string? projectName = Console.ReadLine();
+            List<PersonData> listPersons = PostgresDataAccess.GetListPersonByProject(projectName?.ToLower());
+
+            if (listPersons?.Count > 0)
+            {
+                List<string> uniqueListNames = new List<string>(); //to remove duplicates
+                int index = 1;
+                Console.WriteLine($"\n\tusers in {projectName}'s project:".ToUpper());
+
+                for (int i = 0; i < listPersons.Count; i++)
+                {
+                    string? personName = listPersons[i].person_name;
+
+                    if (personName != null && !uniqueListNames.Contains(personName))
+                    {
+                        uniqueListNames.Add(personName);
+
+                        //Display List
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.Write($"\n\t {index}. {personName}\n");
+                        Console.ResetColor();
+
+                        index++;
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("\n\tNo persons found");
+            }
         }
 
         public static string? GetPersonFromDB()

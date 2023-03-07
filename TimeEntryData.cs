@@ -97,7 +97,7 @@ namespace TimeTrackeConsoleApp
                 string? projectName = ProjectData.GetProjectFromDB();
 
                 //Display List to get index
-                DateTime? oldDate = ListTimeEntriesByPersonForSelection(personName, projectName);
+                DateTime? oldDate = GetDateEntryByCriteria(personName, projectName);
 
                 //get new inputs
                 Console.Write("\n\tEnter the new date (dd-MM-yyyy): ");
@@ -152,7 +152,7 @@ namespace TimeTrackeConsoleApp
             Console.ResetColor();
         }
 
-        static DateTime? ListTimeEntriesByPersonForSelection(string? personName, string? projectName)
+        static DateTime? GetDateEntryByCriteria(string? personName, string? projectName)
         {
             List<TimeEntryData> getTimeEntriesList = PostgresDataAccess.GetTimeEntryData(personName, projectName);
 
@@ -165,7 +165,6 @@ namespace TimeTrackeConsoleApp
             {
                 // Print the menu options
                 PrintTimeEntryList(getTimeEntriesList, menuIndex, personName, projectName);
-                //
 
                 // Wait for a key press
                 ConsoleKeyInfo keyInfo = ReadKey(true);

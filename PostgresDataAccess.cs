@@ -36,11 +36,11 @@ namespace TimeTrackeConsoleApp
                 }
                 catch (NpgsqlException ex) // catch when a PostgreSQL-related error occurs
                 {
-                    throw new Exception("Error creating person(PostgreSQL-related)", ex);
+                    throw new Exception("Error creating person(PostgreSQL-related)" + ex.Message);
                 }
                 catch (Exception ex) //catch any type of exception, not just PostgreSQL-related ones
                 {
-                    throw new Exception("Ops! Something happened... Error creating person!", ex);
+                    throw new Exception("Ops! Something happened... Error creating person!" + ex.Message);
                 }
             }
         }
@@ -58,11 +58,11 @@ namespace TimeTrackeConsoleApp
                 }
                 catch (NpgsqlException ex)
                 {
-                    throw new Exception("Error getting person by name(PostgreSQL-related)", ex);
+                    throw new Exception("Error getting person by name(PostgreSQL-related)" + ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Ops! Something happened...Error getting person by name", ex);
+                    throw new Exception("Ops! Something happened...Error getting person by name" + ex.Message);
                 }
             }
         }
@@ -80,14 +80,43 @@ namespace TimeTrackeConsoleApp
                 }
                 catch (NpgsqlException ex)
                 {
-                    throw new Exception("Error getting a list of person(PostgreSQL-related)", ex);
+                    throw new Exception("Error getting a list of person(PostgreSQL-related)" + ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Ops! Something happened... Error getting a list of person", ex);
+                    throw new Exception("Ops! Something happened... Error getting a list of person" + ex.Message);
                 }
             }
 
+        }
+
+
+        // Retrieve a list of persons by project name
+        public static List<PersonData> GetListPersonByProject(string? projectName)
+        {
+            using (IDbConnection connection = new NpgsqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string sql = "SELECT person_name FROM csrc_person\r\n" +
+                        "JOIN csrc_project_person ON csrc_person.id = csrc_project_person.person_id\r\n" +
+                        "JOIN csrc_project ON csrc_project_person.project_id = csrc_project.id\r\n" +
+                        "WHERE csrc_project.project_name = @project_name";
+
+                    var parameters = new { project_name = projectName };
+                    var personsList = connection.Query<PersonData>(sql, parameters).ToList();
+                    return personsList;
+                }
+                catch (NpgsqlException ex)
+                {
+                    throw new Exception("Error getting a list of projects(PostgreSQL-related)" + ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Ops! Something happened... Error getting a list of projects" + ex.Message);
+                }
+            }
         }
 
         // Update "person"
@@ -113,11 +142,11 @@ namespace TimeTrackeConsoleApp
                 }
                 catch (NpgsqlException ex)
                 {
-                    throw new Exception("Error updating person(PostgreSQL-related)", ex);
+                    throw new Exception("Error updating person(PostgreSQL-related)" + ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Ops! Something happened... Error updating person", ex);
+                    throw new Exception("Ops! Something happened... Error updating person" + ex.Message);
                 }
             }
         }
@@ -135,11 +164,11 @@ namespace TimeTrackeConsoleApp
                 }
                 catch (NpgsqlException ex)
                 {
-                    throw new Exception("Error deleting user(PostgreSQL-related)", ex);
+                    throw new Exception("Error deleting user(PostgreSQL-related)" + ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Ops! Something happened... Error deleting user", ex);
+                    throw new Exception("Ops! Something happened... Error deleting user" + ex.Message);
                 }
             }
         }
@@ -160,11 +189,11 @@ namespace TimeTrackeConsoleApp
                 }
                 catch (NpgsqlException ex)
                 {
-                    throw new Exception("Error creating project(PostgreSQL-related)", ex);
+                    throw new Exception("Error creating project(PostgreSQL-related)" + ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Ops! Something happened... Error creating project!", ex);
+                    throw new Exception("Ops! Something happened... Error creating project!" + ex.Message);
                 }
             }
         }
@@ -182,11 +211,11 @@ namespace TimeTrackeConsoleApp
                 }
                 catch (NpgsqlException ex)
                 {
-                    throw new Exception("Error getting project by name(PostgreSQL-related)", ex);
+                    throw new Exception("Error getting project by name(PostgreSQL-related)" + ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Ops! Something happened... Error getting project by name!", ex);
+                    throw new Exception("Ops! Something happened... Error getting project by name!" + ex.Message);
                 }
             }
         }
@@ -204,11 +233,11 @@ namespace TimeTrackeConsoleApp
                 }
                 catch (NpgsqlException ex)
                 {
-                    throw new Exception("Error getting a list of projects(PostgreSQL-related)", ex);
+                    throw new Exception("Error getting a list of projects(PostgreSQL-related)" + ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Ops! Something happened... Error getting a list of projects", ex);
+                    throw new Exception("Ops! Something happened... Error getting a list of projects" + ex.Message);
                 }
             }
         }
@@ -236,11 +265,11 @@ namespace TimeTrackeConsoleApp
                 }
                 catch (NpgsqlException ex)
                 {
-                    throw new Exception("Error updating project(PostgreSQL-related)", ex);
+                    throw new Exception("Error updating project(PostgreSQL-related)" + ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Ops! Something happened... Error updating project", ex);
+                    throw new Exception("Ops! Something happened... Error updating project" + ex.Message);
                 }
             }
         }
@@ -258,11 +287,11 @@ namespace TimeTrackeConsoleApp
                 }
                 catch (NpgsqlException ex)
                 {
-                    throw new Exception("Error deleting project(PostgreSQL-related)", ex);
+                    throw new Exception("Error deleting project(PostgreSQL-related)" + ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Ops! Something happened... Error deleting project", ex);
+                    throw new Exception("Ops! Something happened... Error deleting project" + ex.Message);
                 }
             }
         }
@@ -297,12 +326,12 @@ namespace TimeTrackeConsoleApp
                     catch (NpgsqlException ex)
                     {
                         transaction.Rollback();
-                        throw new Exception("Error creating new Time Entry(PostgreSQL-related)", ex);
+                        throw new Exception("Error creating new Time Entry(PostgreSQL-related)" + ex.Message);
                     }
                     catch (Exception ex)
                     {
                         transaction.Rollback();
-                        throw new Exception("Ops! Something happened... Error creating new Time Entry!", ex);
+                        throw new Exception("Ops! Something happened... Error creating new Time Entry!" + ex.Message);
                     }
                 }
             }
@@ -326,11 +355,11 @@ namespace TimeTrackeConsoleApp
                 }
                 catch (NpgsqlException ex)
                 {
-                    throw new Exception("Error getting hours by project(PostgreSQL-related)", ex);
+                    throw new Exception("Error getting hours by project(PostgreSQL-related)" + ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Ops! Something happened... Error getting hours by project!", ex);
+                    throw new Exception("Ops! Something happened... Error getting hours by project!" + ex.Message);
                 }
             }
         }
@@ -353,11 +382,11 @@ namespace TimeTrackeConsoleApp
                 }
                 catch (NpgsqlException ex)
                 {
-                    throw new Exception("Error getting hours by person name(PostgreSQL-related)", ex);
+                    throw new Exception("Error getting hours by person name(PostgreSQL-related)" + ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Ops! Something happened... Error getting hours by person name!", ex);
+                    throw new Exception("Ops! Something happened... Error getting hours by person name!" + ex.Message);
                 }
             }
         }
@@ -382,11 +411,11 @@ namespace TimeTrackeConsoleApp
                 }
                 catch (NpgsqlException ex)
                 {
-                    throw new Exception("Error getting hours by person name(PostgreSQL-related)", ex);
+                    throw new Exception("Error getting hours by person name(PostgreSQL-related)" + ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Ops! Something happened... Error getting hours by person name!", ex);
+                    throw new Exception("Ops! Something happened... Error getting hours by person name!" + ex.Message);
                 }
             }
         }
@@ -427,12 +456,12 @@ namespace TimeTrackeConsoleApp
                     catch (NpgsqlException ex)
                     {
                         transaction.Rollback();
-                        throw new Exception("Error updating time entry(PostgreSQL-related)", ex);
+                        throw new Exception("Error updating time entry(PostgreSQL-related)" + ex.Message);
                     }
                     catch (Exception ex)
                     {
                         transaction.Rollback();
-                        throw new Exception("Ops! Something happened... Error updating time entry", ex);
+                        throw new Exception("Ops! Something happened... Error updating time entry" + ex.Message);
                     }
                 }
             }

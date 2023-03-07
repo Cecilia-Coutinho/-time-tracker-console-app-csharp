@@ -119,7 +119,7 @@ namespace TimeTrackeConsoleApp
             List<MenuSystem> PersonReportsMenuItems = new()
             {
                 new MenuSystem("Display All Persons", PersonData.DisplayAllPersons),
-                new MenuSystem("Display Persons By Project", DisplayPersonByProjectMenu),
+                new MenuSystem("Display Persons By Project", PersonData.DisplayPersonByProject),
                 new MenuSystem("Return to Previous Menu", ViewReportsMenu),
                 new MenuSystem("Return to Main Menu", DisplayMainMenu)
             };
@@ -151,18 +151,6 @@ namespace TimeTrackeConsoleApp
                 new MenuSystem("Return to Main Menu", DisplayMainMenu)
             };
             RunMenu(menuName, TimeEntryReportsMenuItems);
-        }
-
-        static void DisplayPersonByProjectMenu()
-        {
-            string menuName = "Person By Project Report Menu";
-            List<MenuSystem> displayPersonByProjectMenuItems = new()
-            {
-                new MenuSystem("Select Project", PersonData.DisplayPersonByProject),
-                new MenuSystem("Return to Previous Menu", PersonReportMenu),
-                new MenuSystem("Return to Main Menu", DisplayMainMenu)
-            };
-            RunMenu(menuName, displayPersonByProjectMenuItems);
         }
 
         static void DisplayProjectByPersonMenu()
