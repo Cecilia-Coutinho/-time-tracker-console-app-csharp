@@ -96,7 +96,7 @@ namespace TimeTrackeConsoleApp
                 string? personName = PersonData.GetPersonFromDB();
                 string? projectName = ProjectData.GetProjectFromDB();
 
-                //Display List to get index
+                //Display List to get indexEntries
                 DateTime? oldDate = GetDateEntryByCriteria(personName, projectName);
 
                 //get new inputs
@@ -140,16 +140,80 @@ namespace TimeTrackeConsoleApp
 
         public static void DisplayAllTimeEntriesByPerson()
         {
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("coming soon");
-            Console.ResetColor();
+            Program.BannerMessageScreen();
+            Console.Write("\n\tEnter Person Name: ");
+            string? personName = Console.ReadLine();
+            List<TimeEntryData> listEntries = PostgresDataAccess.GetTimeDataByPersonName(personName?.ToLower());
+
+            int indexEntries = listEntries.Count;
+
+            if (indexEntries > 0)
+            {
+                //display title
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.WriteLine($"\n\tentries associated to {personName}:".ToUpper());
+                Console.ResetColor();
+
+                int totalHours = 0;
+
+                for (int i = 0; i < indexEntries; i++)
+                {
+                    int hoursEntry = listEntries[i].hours;
+                    DateTime dateEntry = listEntries[i].date;
+
+                    Console.Write($"\n\t{dateEntry.ToString("dd-MM-yyyy")}: {hoursEntry} hrs;\n");
+
+                    totalHours += hoursEntry;
+                }
+
+                //display total of hours spent
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine($"\n\ttotal hours spent in projects: {totalHours} hrs".ToUpper());
+                Console.ResetColor();
+            }
+            else
+            {
+                Console.WriteLine("\n\tNo entries found");
+            }
         }
 
         public static void DisplayAllTimeEntriesByProject()
         {
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("coming soon");
-            Console.ResetColor();
+            Program.BannerMessageScreen();
+            Console.Write("\n\tEnter Project Name: ");
+            string? projectName = Console.ReadLine();
+            List<TimeEntryData> listEntries = PostgresDataAccess.GetTimeDataByProjectName(projectName?.ToLower());
+
+            int indexEntries = listEntries.Count;
+
+            if (indexEntries > 0)
+            {
+                //display title
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.WriteLine($"\n\tentries in {projectName}'s project:".ToUpper());
+                Console.ResetColor();
+
+                int totalHours = 0;
+
+                for (int i = 0; i < indexEntries; i++)
+                {
+                    int hoursEntry = listEntries[i].hours;
+                    DateTime dateEntry = listEntries[i].date;
+
+                    Console.Write($"\n\t{dateEntry.ToString("dd-MM-yyyy")}: {hoursEntry} hrs;\n");
+
+                    totalHours += hoursEntry;
+                }
+
+                //display total of hours spent
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine($"\n\ttotal hours spent in the project: {totalHours} hrs".ToUpper());
+                Console.ResetColor();
+            }
+            else
+            {
+                Console.WriteLine("\n\tNo entries found");
+            }
         }
 
         static DateTime? GetDateEntryByCriteria(string? personName, string? projectName)
@@ -223,13 +287,14 @@ namespace TimeTrackeConsoleApp
             }
         }
     }
-
-    internal class TimeEntryUpdateData
-    {
-        public string? PersonName { get; set; }
-        public string? ProjectName { get; set; }
-        public DateTime OldDate { get; set; }
-        public DateTime NewDate { get; set; }
-        public int NewHours { get; set; }
-    }
 }
+
+internal class TimeEntryUpdateData
+{
+    public string? PersonName { get; set; }
+    public string? ProjectName { get; set; }
+    public DateTime OldDate { get; set; }
+    public DateTime NewDate { get; set; }
+    public int NewHours { get; set; }
+}
+

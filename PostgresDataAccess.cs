@@ -366,14 +366,14 @@ namespace TimeTrackeConsoleApp
         }
 
         // Retrieve a list of timeEntry per project name
-        public static List<TimeEntryData> GetTimeDataByProjectName(string projectName)
+        public static List<TimeEntryData> GetTimeDataByProjectName(string? projectName)
         {
             using (IDbConnection connection = new NpgsqlConnection(connectionString))
             {
                 try
                 {
                     connection.Open();
-                    string sql = "SELECT hours FROM csrc_project_person " +
+                    string sql = "SELECT * FROM csrc_project_person " +
                             "JOIN csrc_project ON csrc_project_person.project_id = csrc_project.id " +
                             "WHERE csrc_project.project_name = @project_name";
 

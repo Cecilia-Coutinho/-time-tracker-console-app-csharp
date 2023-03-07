@@ -145,36 +145,12 @@ namespace TimeTrackeConsoleApp
             string menuName = "Time Entry Report Menu";
             List<MenuSystem> TimeEntryReportsMenuItems = new()
             {
-                new MenuSystem("Display All Time Entries By Person", DisplayTimeEntriesByPersonMenu),
-                new MenuSystem("Display All Time Entries By Project", DisplayTimeEntriesByProjectMenu),
+                new MenuSystem("Display All Time Entries By Person", TimeEntryData.DisplayAllTimeEntriesByPerson),
+                new MenuSystem("Display All Time Entries By Project", TimeEntryData.DisplayAllTimeEntriesByProject),
                 new MenuSystem("Return to Previous Menu", ViewReportsMenu),
                 new MenuSystem("Return to Main Menu", DisplayMainMenu)
             };
             RunMenu(menuName, TimeEntryReportsMenuItems);
-        }
-
-        static void DisplayTimeEntriesByPersonMenu()
-        {
-            string menuName = "Time Entries By Person Report Menu";
-            List<MenuSystem> displayTimeEntriesByPersonMenuItems = new()
-            {
-                new MenuSystem("Select Person", TimeEntryData.DisplayAllTimeEntriesByPerson),
-                new MenuSystem("Return to Previous Menu", TimeEntryReportMenu),
-                new MenuSystem("Return to Main Menu", DisplayMainMenu)
-            };
-            RunMenu(menuName, displayTimeEntriesByPersonMenuItems);
-        }
-
-        static void DisplayTimeEntriesByProjectMenu()
-        {
-            string menuName = "Time Entries By Project Report Menu";
-            List<MenuSystem> displayTimeEntriesByProjectMenuItems = new()
-            {
-                new MenuSystem("Select Project", TimeEntryData.DisplayAllTimeEntriesByProject),
-                new MenuSystem("Return to Previous Menu", TimeEntryReportMenu),
-                new MenuSystem("Return to Main Menu", DisplayMainMenu)
-            };
-            RunMenu(menuName, displayTimeEntriesByProjectMenuItems);
         }
         static void Exit()
         {
