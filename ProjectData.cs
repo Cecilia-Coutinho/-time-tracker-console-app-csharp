@@ -91,11 +91,44 @@
             }
         }
 
-        public static void DisplayProjectByPerson()
+        public static void DisplayProjectsListByPerson()
         {
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("coming soon");
-            Console.ResetColor();
+            Program.BannerMessageScreen();
+            Console.Write("\n\tEnter Person Name: ");
+            string? personName = Console.ReadLine();
+            List<ProjectData> listPersons = PostgresDataAccess.GetListProjectByPerson(personName?.ToLower());
+
+            if (listPersons?.Count > 0)
+            {
+                List<string> uniqueListNames = new List<string>(); //to remove duplicates
+                int index = 1;
+
+                //display title
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.WriteLine($"\n\tProjects associated with {personName}:".ToUpper());
+                Console.ResetColor();
+
+                for (int i = 0; i < listPersons.Count; i++)
+                {
+                    string? projectName = listPersons[i].project_name;
+
+                    if (projectName != null && !uniqueListNames.Contains(projectName))
+                    {
+                        uniqueListNames.Add(projectName);
+
+                        //Display List
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.Write($"\n\t {index}. {projectName}\n");
+                        Console.ResetColor();
+
+                        index++;
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("\n\tNo projects found");
+            }
         }
 
         public static string? GetProjectFromDB()

@@ -93,7 +93,7 @@ namespace TimeTrackeConsoleApp
             }
         }
 
-        public static void DisplayPersonByProject()
+        public static void DisplayPersonsListByProject()
         {
             Program.BannerMessageScreen();
             Console.Write("\n\tEnter Project Name: ");
@@ -104,7 +104,11 @@ namespace TimeTrackeConsoleApp
             {
                 List<string> uniqueListNames = new List<string>(); //to remove duplicates
                 int index = 1;
+
+                //display title
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
                 Console.WriteLine($"\n\tusers in {projectName}'s project:".ToUpper());
+                Console.ResetColor();
 
                 for (int i = 0; i < listPersons.Count; i++)
                 {
@@ -133,8 +137,10 @@ namespace TimeTrackeConsoleApp
         {
             Console.Write("\n\tEnter Person Name: ");
             string? personName = Console.ReadLine();
+
             // Get person data from database
             PersonData getPerson = PostgresDataAccess.GetPersonDataByName(personName?.ToLower());
+
             return personName;
         }
     }

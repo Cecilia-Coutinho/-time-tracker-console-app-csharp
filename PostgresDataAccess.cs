@@ -242,6 +242,34 @@ namespace TimeTrackeConsoleApp
             }
         }
 
+        // Retrieve a list of projects by person name
+        public static List<ProjectData> GetListProjectByPerson(string? personName)
+        {
+            using (IDbConnection connection = new NpgsqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string sql = "SELECT project_name FROM csrc_project\r\n" +
+                        "JOIN csrc_project_person ON csrc_project.id = csrc_project_person.project_id\r\n" +
+                        "JOIN csrc_person ON csrc_project_person.person_id = csrc_person.id\r\n" +
+                        "WHERE csrc_person.person_name = @person_name";
+
+                    var parameters = new { person_name = personName };
+                    var projectsList = connection.Query<ProjectData>(sql, parameters).ToList();
+                    return projectsList;
+                }
+                catch (NpgsqlException ex)
+                {
+                    throw new Exception("Error getting a list of projects(PostgreSQL-related)" + ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Ops! Something happened... Error getting a list of projects" + ex.Message);
+                }
+            }
+        }
+
         // Update a project
         public static int UpdateProjectData(string oldProjectName, string newProjectName)
         {
