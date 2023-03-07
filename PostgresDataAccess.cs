@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.VisualBasic;
 using Npgsql;
 using System.Collections.Generic;
 using System.Configuration;
@@ -342,7 +343,7 @@ namespace TimeTrackeConsoleApp
                 try
                 {
                     connection.Open();
-                    string sql = "SELECT hours FROM csrc_project_person " +
+                    string sql = "SELECT * FROM csrc_project_person " +
                             "JOIN csrc_person ON csrc_project_person.person_id = csrc_person.id " +
                             "WHERE csrc_person.person_name = @person_name";
 
@@ -361,9 +362,37 @@ namespace TimeTrackeConsoleApp
             }
         }
 
+        // Retrieve a list of timeEntries by selecting person and project names
+        public static List<TimeEntryData> GetTimeEntryData(string? personName, string? projectName)
+        {
+            using (IDbConnection connection = new NpgsqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string sql = "SELECT * FROM csrc_project_person " +
+                            "JOIN csrc_person ON csrc_project_person.person_id = csrc_person.id " +
+                            "JOIN csrc_project ON csrc_project_person.project_id = csrc_project.id " +
+                            "WHERE csrc_person.person_name = @person_name " +
+                            "AND csrc_project.project_name = @project_name";
+
+                    var parameters = new { person_name = personName, project_name = projectName };
+                    var listPersonHours = connection.Query<TimeEntryData>(sql, parameters).ToList();
+                    return listPersonHours;
+                }
+                catch (NpgsqlException ex)
+                {
+                    throw new Exception("Error getting hours by person name(PostgreSQL-related)", ex);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Ops! Something happened... Error getting hours by person name!", ex);
+                }
+            }
+        }
+
         // Update a timeEntry by project and person name
-        public static void UpdateTimeEntryData(TimeEntryData updateTimeEntry
-            , string personName, string projectName)
+        public static void UpdateTimeEntryData(TimeEntryUpdateData updateData)
         {
             using (IDbConnection connection = new NpgsqlConnection(connectionString))
             {
@@ -372,25 +401,32 @@ namespace TimeTrackeConsoleApp
                 {
                     try
                     {
-                        string sql = "UPDATE csrc_project_person SET hours = @hours, date = @date " +
-                                     "FROM csrc_person, csrc_project " +
-                                     "WHERE csrc_person.person_name = @person_name " +
-                                     "AND csrc_project.project_name = @project_name " +
-                                     "AND csrc_project_person.project_id = csrc_project.id " +
-                                     "AND csrc_project_person.person_id = csrc_person.id";
+                        string sql = "UPDATE csrc_project_person SET hours = @hours, date = @new_date " +
+                                "WHERE date = @old_date " +
+                                "AND csrc_project_person.project_id = ( " +
+                                    "SELECT id " +
+                                    "FROM csrc_project " +
+                                    "WHERE csrc_project.project_name = @project_name) " +
+
+                                "AND csrc_project_person.person_id = ( " +
+                                    "SELECT id " +
+                                    "FROM csrc_person " +
+                                    "WHERE csrc_person.person_name = @person_name)";
 
                         var parameters = new
                         {
-                            hours = updateTimeEntry.hours,
-                            date = updateTimeEntry.date,
-                            person_name = personName,
-                            project_name = projectName
+                            hours = updateData.NewHours,
+                            new_date = updateData.NewDate,
+                            old_date = updateData.OldDate,
+                            person_name = updateData.PersonName,
+                            project_name = updateData.ProjectName
                         };
                         connection.Execute(sql, parameters, transaction: transaction);
                         transaction.Commit();
                     }
                     catch (NpgsqlException ex)
                     {
+                        transaction.Rollback();
                         throw new Exception("Error updating time entry(PostgreSQL-related)", ex);
                     }
                     catch (Exception ex)

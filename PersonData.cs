@@ -1,4 +1,6 @@
-﻿namespace TimeTrackeConsoleApp
+﻿using Npgsql.Replication.PgOutput.Messages;
+
+namespace TimeTrackeConsoleApp
 {
     internal class PersonData
     {
@@ -96,6 +98,15 @@
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("coming soon");
             Console.ResetColor();
+        }
+
+        public static string? GetPersonFromDB()
+        {
+            Console.Write("\n\tEnter Person Name: ");
+            string? personName = Console.ReadLine();
+            // Get person data from database
+            PersonData getPerson = PostgresDataAccess.GetPersonDataByName(personName?.ToLower());
+            return personName;
         }
     }
 }

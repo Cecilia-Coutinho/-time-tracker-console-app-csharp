@@ -97,5 +97,14 @@
             Console.WriteLine("coming soon");
             Console.ResetColor();
         }
+
+        public static string? GetProjectFromDB()
+        {
+            Console.Write("\n\tEnter Project Name: ");
+            string? projectName = Console.ReadLine();
+            // Get person data from database
+            ProjectData getProject = PostgresDataAccess.GetProjectDataByName(projectName?.ToLower());
+            return projectName;
+        }
     }
 }

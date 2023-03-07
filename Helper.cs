@@ -108,7 +108,7 @@ namespace TimeTrackeConsoleApp
                 date = ParseStringToDate("28-02-2023")
             };
 
-            PostgresDataAccess.UpdateTimeEntryData(newEntry, "maria.rosa", "coding");
+            //PostgresDataAccess.UpdateTimeEntryData(newEntry, "maria.rosa", "coding");
             Console.WriteLine($"Hours updated to: {newEntry.hours}  || Date updated to: {ParseDateToString(newEntry.date)}");
         }
 
