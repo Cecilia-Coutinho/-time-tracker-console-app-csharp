@@ -14,11 +14,14 @@ The Time Tracker Console Application is a software solution designed to track ti
 The MVP (Minimum Viable Product) of the Time Tracker Console App will include the following features:
 </p>
 <ul>
-<li>Basic user interface and data visualization</li>
-<li>Menu allowing users to create persons and projects</li>
-<li>Ability to insert time to specific projects</li>
-<li>Menu allowing users to edit persons, projects, and time</li>
-<li>Basic reporting features, including a summary of time spent on each project</li>
+<li>Basic user interface and data visualization.</li>
+<li>Menu allowing users to Manage Persons, Projects and Time Entries with the following options:</li>
+<ul>
+<li>Ability to create and edit persons.</li>
+<li>Ability to create and edit projects.</li>
+<li>Ability to insert and edit time to specific projects.</li>
+</ul>
+<li>Basic reporting features, including a summary of time spent on each project.</li>
 </ul>
 
 <h2>🎯 Additional Features:</h2>
