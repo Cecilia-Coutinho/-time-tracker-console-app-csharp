@@ -11,7 +11,7 @@ The Time Tracker Console Application is a software solution designed to track ti
 
 <h2>📋 MVP</h2>
 <p>
-The MVP (Minimum Viable Product) of the Time Tracker Console App will include the following features:
+The MVP (Minimum Viable Product) of the Time Tracker Console App includes the following features:
 </p>
 <ul>
 <li>Basic user interface and data visualization.</li>
