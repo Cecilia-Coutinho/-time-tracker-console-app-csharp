@@ -7,7 +7,10 @@ by <a href="https://github.com/Cecilia-Coutinho">Cecilia Coutinho</a>
 <h2>🌍 Overview</h2>
 
 <p align = center>
-The Time Tracker Console Application is a software solution designed to track time spent on various activities within a project. The application provide a user-friendly interface that enables users to create persons and projects, insert time to a specific project, and edit persons, projects, and time. Additionally, the application prevents the creation of insertions by id. The solution was made using C# as the primary language and developed using .NET6.
+The Time Tracker Console Application is a software solution designed to track time spent on various activities within a project. 
+The application provide a user-friendly interface that enables users to create persons and projects, insert time to a specific project, 
+and edit persons, projects, and time. Additionally, the application prevents the creation of insertions by id. The solution was made using 
+C# as the primary language and developed using .NET6.</p>
 
 <h2>📋 MVP</h2>
 <p>
@@ -25,7 +28,6 @@ The MVP (Minimum Viable Product) of the Time Tracker Console App includes the fo
 </ul>
 
 <h2>🎯 Additional Features:</h2>
-<p ><img align="center" width="500" src="./.github/first_level.svg#gh-dark-mode-only"/></p>
 <p>
 The Time Tracker Console Application could include the following additional features in later stages:
 </p>
@@ -35,7 +37,6 @@ The Time Tracker Console Application could include the following additional feat
 </ul>
 
 <h2>💻 Technology Stack</h2>
-<p ><img align="center" width="500" src="./.github/first_level.svg#gh-dark-mode-only"/></p>
 <ul>
 <li><b>C#</b> as the primary language</li>
 <li><b>.NET6</b> as the framework</li>
@@ -44,12 +45,10 @@ The Time Tracker Console Application could include the following additional feat
 <li><b>NpgSQL</b> as the PostgreSQL database driver</li>
 <li><b>SystemConfiguration.Configuration Manager</b> for application configuration management</li>
 <li><b>DbGate</b> for database management and querying.</li>
+<li><b>Git</b> for version control.</li>
 </ul>
 
-<p><img align="center" width="500" src="./.github/second_level.svg#gh-dark-mode-only"/></p>
-
 <h2>📏 Project Methodology</h2>
-<p ><img align="center" width="500" src="./.github/first_level.svg#gh-dark-mode-only"/></p>
 <ul>
 <li>Kanban</li>
 </ul>
